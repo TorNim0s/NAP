@@ -77,14 +77,17 @@
         android:layout_margin="20dp"/>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/signup"
         android:layout_below="@id/forgotpass"
-        android:text="SIGN UP"
-        android:backgroundTint="@color/purple_200"
         android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"/>
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/purple_200"
+        android:text="SIGN UP" />
 
     <TextView
         android:layout_width="wrap_content"

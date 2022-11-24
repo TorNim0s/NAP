@@ -117,6 +117,18 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"/>
 
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="70dp"
+        android:layout_height="35dp"
+        android:id="@+id/back"
+        android:layout_below="@id/signupbtn"
+        android:text="back"
+        android:backgroundTint="@color/purple_200"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:textSize="10dp"
+        />
+
 
 
 
