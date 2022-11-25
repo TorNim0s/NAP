@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
                 if (username.getText().toString().equals("admin") && password.getText().toString().equals("admin")){
                     //correct
                     Toast.makeText(MainActivity.this, "LOGIN SUCCESSFUL", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, RentParking.class);
+                    startActivity(intent);
                 }
                 else {
                     Toast.makeText(MainActivity.this, "LOGIN FAILED!", Toast.LENGTH_SHORT).show();
