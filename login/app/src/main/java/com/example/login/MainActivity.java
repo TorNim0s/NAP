@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
         MaterialButton signup = (MaterialButton) findViewById(R.id.signup);
 
+        MaterialButton temp = (MaterialButton) findViewById(R.id.temp);
+
         //admin admin
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
@@ -46,6 +48,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        temp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, PostParking.class);
                 startActivity(intent);
             }
         });
