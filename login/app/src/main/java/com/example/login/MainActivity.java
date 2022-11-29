@@ -1,65 +1,73 @@
 package com.example.login;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ScrollView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    RecyclerView recyclerView;
+    DatabaseReference database;
+    ParkingAdapter myAdapter;
+    ArrayList<Park> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView username = (TextView) findViewById(R.id.username);
-        TextView password = (TextView) findViewById(R.id.password);
+        MaterialButton login = (MaterialButton) findViewById(R.id.login);
 
-        MaterialButton loginbtn = (MaterialButton) findViewById(R.id.loginbtn);
+        recyclerView = findViewById(R.id.parkingList);
+        database = FirebaseDatabase.getInstance().getReference("Parkings");
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        MaterialButton signup = (MaterialButton) findViewById(R.id.signup);
+        list = new ArrayList<>();
+        myAdapter = new ParkingAdapter(this,list);
+        recyclerView.setAdapter(myAdapter);
 
-        MaterialButton temp = (MaterialButton) findViewById(R.id.temp);
-
-        //admin admin
-
-        loginbtn.setOnClickListener(new View.OnClickListener() {
+        database.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                if (username.getText().toString().equals("admin") && password.getText().toString().equals("admin")){
-                    //correct
-                    Toast.makeText(MainActivity.this, "LOGIN SUCCESSFUL", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this, RentParking.class);
-                    startActivity(intent);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Park park = dataSnapshot.getValue(Park.class);
+
+                    list.add(park);
                 }
-                else {
-                    Toast.makeText(MainActivity.this, "LOGIN FAILED!", Toast.LENGTH_SHORT).show();
-                }
+
+                myAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
-        signup.setOnClickListener(new View.OnClickListener() {
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+                Intent intent = new Intent(MainActivity.this, SignIn.class);
                 startActivity(intent);
             }
         });
 
-        temp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, PostParking.class);
-                startActivity(intent);
-            }
-        });
     }
-
-
 }

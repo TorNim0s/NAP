@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "1067978271797",
+    "firebase_url": "https://nap-project-7c079-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "nap-project-7c079",
+    "storage_bucket": "nap-project-7c079.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067978271797:android:39bd95d2046506ad17957c",
+        "android_client_info": {
+          "package_name": "com.example.login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1067978271797-ke87mrpurock33fjeeqbmvefgqpekinb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAysGwAr29YI1euEmR0k613kCf5UlaMcFE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1067978271797-ke87mrpurock33fjeeqbmvefgqpekinb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067978271797:android:a32a1ae092a7c77f17957c",
+        "android_client_info": {
+          "package_name": "com.example.nap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1067978271797-ke87mrpurock33fjeeqbmvefgqpekinb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAysGwAr29YI1euEmR0k613kCf5UlaMcFE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1067978271797-ke87mrpurock33fjeeqbmvefgqpekinb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
