@@ -1,6 +1,8 @@
 package com.example.login;
 
+import android.app.Notification;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +56,15 @@ public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.MyViewHo
             parkingAddress = itemView.findViewById(R.id.parkingAddress);
             availableHours = itemView.findViewById(R.id.parkingAvailableHours);
             Price = itemView.findViewById(R.id.parkingPrice);
+
+            itemView.findViewById(R.id.rentButton).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d("demo", "onClick: " + parkOwnerFirstName.getText() +
+                            " - " + parkingAddress.getText() + " - " + availableHours.getText() +
+                            " - " + Price.getText());
+                }
+            });
         }
     }
 

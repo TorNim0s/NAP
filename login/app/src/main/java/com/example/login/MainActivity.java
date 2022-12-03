@@ -3,7 +3,6 @@ package com.example.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,22 +23,40 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     DatabaseReference database;
     ParkingAdapter myAdapter;
-    ArrayList<Park> list;
+    ArrayList<Park> parkingList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
-        MaterialButton login = (MaterialButton) findViewById(R.id.login);
 
+
+        MaterialButton loginBtn = (MaterialButton) findViewById(R.id.login);
+
+        /*
+
+        // Delete loginBtn if already in user
+
+        loginBtn.setVisibility(View.GONE);
+        MaterialButton profileBtn = (MaterialButton) findViewById(R.id.ProfileButton);
+        profileBtn.setVisibility(View.VISIBLE);
+
+
+        // Delete Add parking if not logged in
+
+        MaterialButton addParkingBtn = (MaterialButton) findViewById(R.id.AddParkingButton);
+        addParkingBtn.setVisibility(View.GONE);
+
+        */
         recyclerView = findViewById(R.id.parkingList);
         database = FirebaseDatabase.getInstance().getReference("Parkings");
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        list = new ArrayList<>();
-        myAdapter = new ParkingAdapter(this,list);
+        parkingList = new ArrayList<>();
+        myAdapter = new ParkingAdapter(this,parkingList);
         recyclerView.setAdapter(myAdapter);
 
         database.addValueEventListener(new ValueEventListener() {
@@ -47,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Park park = dataSnapshot.getValue(Park.class);
+                    Park parkItem = dataSnapshot.getValue(Park.class);
 
-                    list.add(park);
+                    parkingList.add(parkItem);
                 }
 
                 myAdapter.notifyDataSetChanged();
@@ -61,13 +78,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        login.setOnClickListener(new View.OnClickListener() {
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SignIn.class);
                 startActivity(intent);
             }
         });
+
+
 
     }
 }
