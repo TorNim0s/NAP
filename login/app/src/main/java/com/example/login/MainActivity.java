@@ -42,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
         // Delete login if already in user
 
         login.setVisibility(View.GONE);
+        MaterialButton profileBtn = (MaterialButton) findViewById(R.id.ProfileButton);
+        profileBtn.setVisibility(View.VISIBLE);
+
 
         // Delete Add parking if not logged in
 
