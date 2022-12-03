@@ -3,6 +3,7 @@ package com.example.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
@@ -29,10 +30,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
+
 
         MaterialButton login = (MaterialButton) findViewById(R.id.login);
 
+        /*
+
+        // Delete login if already in user
+
+        login.setVisibility(View.GONE);
+
+        // Delete Add parking if not logged in
+
+        MaterialButton addParkingBtn = (MaterialButton) findViewById(R.id.AddParkingButton);
+        addParkingBtn.setVisibility(View.GONE);
+
+        */
         recyclerView = findViewById(R.id.parkingList);
         database = FirebaseDatabase.getInstance().getReference("Parkings");
         recyclerView.setHasFixedSize(true);
@@ -68,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
 
     }
 }
