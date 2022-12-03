@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     DatabaseReference database;
     ParkingAdapter myAdapter;
-    ArrayList<Park> list;
+    ArrayList<Park> parkingList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +33,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        MaterialButton login = (MaterialButton) findViewById(R.id.login);
+        MaterialButton loginBtn = (MaterialButton) findViewById(R.id.login);
 
         /*
 
-        // Delete login if already in user
+        // Delete loginBtn if already in user
 
-        login.setVisibility(View.GONE);
+        loginBtn.setVisibility(View.GONE);
         MaterialButton profileBtn = (MaterialButton) findViewById(R.id.ProfileButton);
         profileBtn.setVisibility(View.VISIBLE);
 
@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        list = new ArrayList<>();
-        myAdapter = new ParkingAdapter(this,list);
+        parkingList = new ArrayList<>();
+        myAdapter = new ParkingAdapter(this,parkingList);
         recyclerView.setAdapter(myAdapter);
 
         database.addValueEventListener(new ValueEventListener() {
@@ -64,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Park park = dataSnapshot.getValue(Park.class);
+                    Park parkItem = dataSnapshot.getValue(Park.class);
 
-                    list.add(park);
+                    parkingList.add(parkItem);
                 }
 
                 myAdapter.notifyDataSetChanged();
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        login.setOnClickListener(new View.OnClickListener() {
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SignIn.class);
