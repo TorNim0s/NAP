@@ -39,7 +39,7 @@
         android:textColorHint="@color/white"/>
 
     <EditText
-        android:id="@+id/mail"
+        android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/fullname"
@@ -50,7 +50,7 @@
         android:background="#30ffffff"
         android:drawableLeft="@drawable/ic_baseline_mail_24"
         android:drawablePadding="20dp"
-        android:hint="Mail"
+        android:hint="Email"
         android:padding="20dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"/>
@@ -59,7 +59,7 @@
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/mail"
+        android:layout_below="@id/email"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -90,44 +90,30 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"/>
 
-    <EditText
-        android:id="@+id/dob"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/phone"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="#30ffffff"
-        android:drawableLeft="@drawable/ic_baseline_date_range_24"
-        android:drawablePadding="20dp"
-        android:hint="Date of birth"
-        android:padding="20dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"/>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/signupBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/signupbtn"
-        android:layout_below="@id/dob"
-        android:text="SIGNUP"
-        android:backgroundTint="@color/purple_200"
+        android:layout_below="@id/phone"
         android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"/>
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/purple_200"
+        android:text="SIGNUP" />
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="70dp"
         android:layout_height="35dp"
         android:id="@+id/back"
-        android:layout_below="@id/signupbtn"
+        android:layout_below="@id/signupBtn"
         android:text="back"
         android:backgroundTint="@color/purple_200"
         android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        android:textSize="10dp"
-        />
+        android:layout_margin="10dp"
+        android:textSize="10dp" />
 
 
 
