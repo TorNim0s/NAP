@@ -5,31 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".SignIn">
+    tools:context=".Profile">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/others"
-        android:layout_above="@id/social"
-        android:text="or sign in with"
-        android:layout_centerHorizontal="true"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/social"
-        android:layout_alignParentBottom="true"
-        android:gravity="center">
-
+        android:padding="10dp"
+        android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="20dp"
-            android:id="@+id/google"
-            android:src="@drawable/googlelogo"/>
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_arrow_back"
+            android:layout_alignParentLeft="true"/>
 
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Account Settings"
+            android:textSize="16dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 
