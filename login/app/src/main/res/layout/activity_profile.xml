@@ -3,51 +3,80 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/background"
+    android:paddingTop="15dp"
     tools:context=".Profile">
 
 
     <LinearLayout
+        android:id="@+id/linear_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:id="@+id/linear_ll"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_arrow_back"
-            android:layout_alignParentLeft="true"/>
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_arrow_back" />
 
         <TextView
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Account Settings"
-            android:textSize="16dp"
+            android:layout_weight="1"
             android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:text="Account Settings"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:text="Logout"
             android:textColor="@color/white"
-            android:layout_alignParentRight="true"
-            android:textStyle="normal"
-            android:textSize="15dp"/>
-        
+            android:textSize="15dp"
+            android:textStyle="normal" />
+
     </LinearLayout>
-    
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_below="@+id/linear_ll"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="58dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="-40dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        android:gravity="center"
+        android:src="@drawable/person"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Name"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="210dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="-40dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        android:gravity="center"
+        android:textStyle="bold"/>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/white"
+        android:layout_height="0.5dp"
         android:layout_below="@id/linear_ll"
-        android:paddingRight="8dp"
-        android:paddingLeft="8dp"/>
+        android:background="@color/white"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp" />
 
 </RelativeLayout>
