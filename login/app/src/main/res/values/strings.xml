@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Login</string>
+    <string name="app_name">NAP</string>
+    <color name="cardColor">#9682CB</color>
 </resources>
