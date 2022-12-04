@@ -31,9 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-
-
         MaterialButton loginBtn = (MaterialButton) findViewById(R.id.login);
+        MaterialButton postParkingBtn = (MaterialButton) findViewById(R.id.PostParkingButton);
 
         /*
 
@@ -46,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Delete Add parking if not logged in
 
-        MaterialButton addParkingBtn = (MaterialButton) findViewById(R.id.AddParkingButton);
         addParkingBtn.setVisibility(View.GONE);
 
         */
@@ -86,7 +84,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        postParkingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, PostParking.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }
