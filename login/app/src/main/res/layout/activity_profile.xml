@@ -49,7 +49,7 @@
         android:layout_below="@+id/linear_ll"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="58dp"
-        android:layout_marginEnd="150dp"
+        android:layout_marginEnd="160dp"
         android:layout_marginBottom="-40dp"
         android:adjustViewBounds="true"
         android:cropToPadding="true"
@@ -64,7 +64,7 @@
         android:textSize="20dp"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="210dp"
-        android:layout_marginEnd="150dp"
+        android:layout_marginEnd="160dp"
         android:layout_marginBottom="-40dp"
         android:adjustViewBounds="true"
         android:cropToPadding="true"
@@ -73,10 +73,41 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
+        android:layout_height="1dp"
         android:layout_below="@id/linear_ll"
         android:background="@color/white"
         android:paddingLeft="8dp"
         android:paddingRight="8dp" />
+
+        
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_person"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="280dp"
+            android:layout_marginEnd="280dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="First Name"
+            android:textColor="@color/white"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="290dp"
+            android:layout_marginEnd="200dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your"
+            android:textColor="@color/white"
+            android:textSize="13dp"
+            android:textStyle="normal"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="290dp"
+            android:layout_marginEnd="130dp"/>
 
 </RelativeLayout>
