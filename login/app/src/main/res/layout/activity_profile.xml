@@ -140,4 +140,34 @@
             android:layout_marginTop="348dp"
             android:layout_marginEnd="120dp"/>
 
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_email"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="398dp"
+            android:layout_marginEnd="280dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textColor="@color/white"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="406dp"
+            android:layout_marginEnd="228dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="user@email.com"
+            android:textColor="@color/white"
+            android:textSize="13dp"
+            android:textStyle="normal"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="406dp"
+            android:layout_marginEnd="100dp"/>
+
 </RelativeLayout>
