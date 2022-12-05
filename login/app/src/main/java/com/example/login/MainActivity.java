@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,20 +36,18 @@ public class MainActivity extends AppCompatActivity {
         MaterialButton loginBtn = (MaterialButton) findViewById(R.id.login);
         MaterialButton postParkingBtn = (MaterialButton) findViewById(R.id.PostParkingButton);
 
-        /*
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            //User is Logged in
+            loginBtn.setVisibility(View.GONE); // Delete loginBtn if already in user
+            MaterialButton profileBtn = (MaterialButton) findViewById(R.id.ProfileButton);
+            profileBtn.setVisibility(View.VISIBLE);
+        }else{
+            //No User is Logged in
+            postParkingBtn.setVisibility(View.GONE);         // Delete post parking if not logged in
 
-        // Delete loginBtn if already in user
+        }
 
-        loginBtn.setVisibility(View.GONE);
-        MaterialButton profileBtn = (MaterialButton) findViewById(R.id.ProfileButton);
-        profileBtn.setVisibility(View.VISIBLE);
-
-
-        // Delete Add parking if not logged in
-
-        addParkingBtn.setVisibility(View.GONE);
-
-        */
         recyclerView = findViewById(R.id.parkingList);
         database = FirebaseDatabase.getInstance().getReference("Parkings");
         recyclerView.setHasFixedSize(true);
@@ -93,4 +93,5 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
 }
