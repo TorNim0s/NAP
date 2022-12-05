@@ -187,8 +187,21 @@
             android:textColor="@color/white"
             android:textSize="18dp"
             android:drawableLeft="@drawable/ic_edit"
-            android:paddingLeft="10dp"
+            android:paddingLeft="20dp"
             android:layout_marginLeft="-10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn2"
+            android:text="Change Password"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:drawableLeft="@drawable/ic_lock"
+            android:paddingLeft="20dp"
+            android:layout_marginLeft="-10dp"
+            android:layout_marginTop="15dp"/>
 
     </LinearLayout>
 
