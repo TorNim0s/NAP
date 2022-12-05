@@ -85,7 +85,7 @@
             android:layout_height="30dp"
             android:src="@drawable/ic_person"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="280dp"
+            android:layout_marginTop="282dp"
             android:layout_marginEnd="280dp"/>
 
         <TextView
@@ -109,5 +109,35 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="290dp"
             android:layout_marginEnd="130dp"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_person"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="340dp"
+            android:layout_marginEnd="280dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Last Name"
+            android:textColor="@color/white"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="348dp"
+            android:layout_marginEnd="200dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textColor="@color/white"
+            android:textSize="13dp"
+            android:textStyle="normal"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="348dp"
+            android:layout_marginEnd="120dp"/>
 
 </RelativeLayout>
