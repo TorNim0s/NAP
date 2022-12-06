@@ -33,20 +33,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_main);
 
-        //MaterialButton loginBtn = (MaterialButton) findViewById(R.id.login);
-        //MaterialButton postParkingBtn = (MaterialButton) findViewById(R.id.PostParkingButton);
+        MaterialButton loginBtn = (MaterialButton) findViewById(R.id.login);
+        MaterialButton postParkingBtn = (MaterialButton) findViewById(R.id.PostParkingButton);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             //User is Logged in
-            binding.login.setVisibility(View.GONE); // Delete loginBtn if already in user
+            loginBtn.setVisibility(View.GONE); // Delete loginBtn if already in user
             MaterialButton profileBtn = (MaterialButton) findViewById(R.id.ProfileButton);
             profileBtn.setVisibility(View.VISIBLE);
         }else{
             //No User is Logged in
-            binding.PostParkingButton.setVisibility(View.GONE);         // Delete post parking if not logged in
+            postParkingBtn.setVisibility(View.GONE);         // Delete post parking if not logged in
 
         }
 
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        binding.login.setOnClickListener(new View.OnClickListener() {
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SignIn.class);
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        binding.PostParkingButton.setOnClickListener(new View.OnClickListener() {
+        postParkingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, PostParking.class);
