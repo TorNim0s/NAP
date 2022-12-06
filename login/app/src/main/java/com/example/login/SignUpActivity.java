@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.login.databinding.ActivitySignUpBinding;
-import com.example.login.databinding.ActivitySigninBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
