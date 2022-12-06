@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+
+import com.google.android.material.button.MaterialButton;
 
 import java.util.Locale;
 
@@ -30,6 +33,16 @@ public class PostParking extends AppCompatActivity {
 
         timeFrom = findViewById(R.id.timeFrom);
         timeUntil = findViewById(R.id.timeUntil);
+
+        MaterialButton back = (MaterialButton) findViewById(R.id.back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PostParking.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         //get the spinner from the xml.

@@ -8,7 +8,7 @@
     tools:context=".RentParking">
 
     <TextView
-        android:id="@+id/parking"
+        android:id="@+id/address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="30sp"
@@ -24,7 +24,7 @@
         android:id="@+id/owner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/parking"
+        android:layout_below="@id/address"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -39,6 +39,7 @@
         android:id="@+id/mapView"
         android:layout_width="393dp"
         android:layout_height="201dp"
+        android:layout_marginEnd="10dp"
         android:layout_below="@+id/owner"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp" />

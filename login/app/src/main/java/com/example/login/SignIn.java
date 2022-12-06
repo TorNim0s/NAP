@@ -1,61 +1,97 @@
 package com.example.login;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.example.login.databinding.ActivitySigninBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.w3c.dom.Text;
 
 public class SignIn extends AppCompatActivity {
+
+    ActivitySigninBinding binding;
+
+    ProgressDialog progressDialog;
+    FirebaseAuth firebaseAuth;
+    FirebaseFirestore firebaseFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signin);
+        binding = ActivitySigninBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        TextView username = (TextView) findViewById(R.id.username);
-        TextView password = (TextView) findViewById(R.id.password);
 
-        MaterialButton loginbtn = (MaterialButton) findViewById(R.id.loginbtn);
+        firebaseAuth = FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(this);
 
-        MaterialButton signup = (MaterialButton) findViewById(R.id.signup);
-
-        MaterialButton temp = (MaterialButton) findViewById(R.id.temp);
-
-        //admin admin
-
-        loginbtn.setOnClickListener(new View.OnClickListener() {
+        binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (username.getText().toString().equals("admin") && password.getText().toString().equals("admin")){
-                    //correct
-                    Toast.makeText(SignIn.this, "LOGIN SUCCESSFUL", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(SignIn.this, RentParking.class);
-                    startActivity(intent);
-                }
-                else {
-                    Toast.makeText(SignIn.this, "LOGIN FAILED!", Toast.LENGTH_SHORT).show();
-                }
+                String email = binding.email.getText().toString().trim();
+                String password = binding.password.getText().toString();
+                progressDialog.show();
+                firebaseAuth.signInWithEmailAndPassword(email, password)
+                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                            @Override
+                            public void onSuccess(AuthResult authResult) {
+                                progressDialog.cancel();
+                                Toast.makeText(SignIn.this, "Login successful", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(SignIn.this, MainActivity.class));
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                progressDialog.cancel();
+                                Toast.makeText(SignIn.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
 
-        signup.setOnClickListener(new View.OnClickListener() {
+        binding.signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignIn.this, SignUpActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(SignIn.this, SignUpActivity.class));
             }
         });
 
-        temp.setOnClickListener(new View.OnClickListener() {
+        binding.forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignIn.this, PostParking.class);
-                startActivity(intent);
+                String email = binding.email.getText().toString();
+                progressDialog.setTitle("Sending Mail");
+                progressDialog.show();
+                firebaseAuth.sendPasswordResetEmail(email)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                progressDialog.cancel();
+                                Toast.makeText(SignIn.this, "Email sent", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                progressDialog.cancel();
+                                Toast.makeText(SignIn.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
     }
