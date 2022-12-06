@@ -94,6 +94,16 @@ public class SignIn extends AppCompatActivity {
                         });
             }
         });
+
+        binding.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignIn.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
 
