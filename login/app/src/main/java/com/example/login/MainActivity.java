@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.login.databinding.ActivityMainBinding;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,7 +22,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ActivityMainBinding binding;
     RecyclerView recyclerView;
     DatabaseReference database;
     ParkingAdapter myAdapter;
@@ -32,22 +30,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-
         setContentView(R.layout.activity_main);
 
         MaterialButton loginBtn = (MaterialButton) findViewById(R.id.login);
         MaterialButton postParkingBtn = (MaterialButton) findViewById(R.id.PostParkingButton);
+        MaterialButton profileBtn = (MaterialButton) findViewById(R.id.ProfileButton);
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
+//            loginBtn.setVisibility(View.GONE);
             //User is Logged in
-            binding.login.setVisibility(View.GONE); // Delete loginBtn if already in user
-            binding.ProfileButton.setVisibility(View.VISIBLE);
+            loginBtn.setVisibility(View.GONE); // Delete loginBtn if already in user
+            profileBtn.setVisibility(View.VISIBLE);
         }else{
+            postParkingBtn.setVisibility(View.GONE);
             //No User is Logged in
-            binding.PostParkingButton.setVisibility(View.GONE);         // Delete post parking if not logged in
-
         }
 
         recyclerView = findViewById(R.id.parkingList);
@@ -78,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        binding.login.setOnClickListener(new View.OnClickListener() {
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SignIn.class);
@@ -86,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        binding.PostParkingButton.setOnClickListener(new View.OnClickListener() {
+        postParkingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, PostParking.class);
@@ -94,10 +92,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        binding.ProfileButton.setOnClickListener(new View.OnClickListener() {
+        profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(MainActivity.this, Profile.class));
+                startActivity(new Intent(MainActivity.this, Profile.class));
             }
         });
 
