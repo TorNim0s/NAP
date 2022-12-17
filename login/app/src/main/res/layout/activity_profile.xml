@@ -93,18 +93,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="First Name"
+            android:text="Name"
             android:textColor="@color/white"
             android:textSize="13dp"
             android:textStyle="bold"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="290dp"
-            android:layout_marginEnd="200dp"/>
+            android:layout_marginEnd="230dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your"
+            android:id="@+id/name_text_view"
+            android:text="YourName"
             android:textColor="@color/white"
             android:textSize="13dp"
             android:textStyle="normal"
@@ -123,18 +124,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Last Name"
+            android:text="Phone Number"
             android:textColor="@color/white"
             android:textSize="13dp"
             android:textStyle="bold"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="348dp"
-            android:layout_marginEnd="200dp"/>
+            android:layout_marginEnd="180dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
+            android:text="number"
+            android:id="@+id/number_text_view"
             android:textColor="@color/white"
             android:textSize="13dp"
             android:textStyle="normal"
@@ -165,6 +167,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="user@email.com"
+            android:id="@+id/email_text_view"
             android:textColor="@color/white"
             android:textSize="13dp"
             android:textStyle="normal"
