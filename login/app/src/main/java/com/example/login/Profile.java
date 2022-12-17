@@ -36,12 +36,42 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        TextView addParking = (TextView) findViewById(R.id.addParking);
+        addParking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // code to go back to the previous screen goes here
+                Toast.makeText(Profile.this, "In progress: add parking", Toast.LENGTH_SHORT).show();
+                //startActivity(new Intent(Profile.this, AddParking.class));
+            }
+        });
+
+        TextView editProfile = (TextView) findViewById(R.id.editProfile);
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // code to go back to the previous screen goes here
+                Toast.makeText(Profile.this, "In progress: edit profile", Toast.LENGTH_SHORT).show();
+                //startActivity(new Intent(Profile.this, AddParking.class));
+            }
+        });
+
+        TextView changePassword = (TextView) findViewById(R.id.changePassword);
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // code to go back to the previous screen goes here
+                Toast.makeText(Profile.this, "In progress: change password", Toast.LENGTH_SHORT).show();
+                //startActivity(new Intent(Profile.this, AddParking.class));
+            }
+        });
+
         ImageView backButton = (ImageView) findViewById(R.id.backBtn);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // code to go back to the previous screen goes here
-                finish();
+                startActivity(new Intent(Profile.this, MainActivity.class));
             }
         });
 
@@ -82,8 +112,6 @@ public class Profile extends AppCompatActivity {
                     Toast.makeText(Profile.this, "Error retrieving user data", Toast.LENGTH_SHORT).show();
                 }
             }
-
-
         });
 
 
