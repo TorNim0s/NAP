@@ -3,6 +3,7 @@ package com.example.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,5 +28,17 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        ImageView backButton = (ImageView) findViewById(R.id.backBtn);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // code to go back to the previous screen goes here
+                finish();
+            }
+        });
+
     }
+
+
+
 }
