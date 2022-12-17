@@ -47,7 +47,7 @@ public class Profile extends AppCompatActivity {
 
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DocumentReference userDocRef = firestore.collection("Users").document(user.getUid());
+        DocumentReference userDocRef = firestore.collection("User").document(user.getUid());
 
         userDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
