@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8c11a46b-ee2d-4972-b9bc-370618f078fa" name="Changes" comment="" />
+    <list default="true" id="8c11a46b-ee2d-4972-b9bc-370618f078fa" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/NAP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/NAP.iml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
