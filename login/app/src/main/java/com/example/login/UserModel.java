@@ -1,8 +1,11 @@
 package com.example.login;
 
+import java.util.ArrayList;
+
 public class UserModel {
 
     private String name, number, email;
+    private ArrayList<ParkingModel> parkings;
 
     public UserModel(){
 
@@ -12,6 +15,7 @@ public class UserModel {
         this.name = name;
         this.number = number;
         this.email = email;
+        parkings = new ArrayList<>();
     }
 
     public String getName() {
@@ -36,5 +40,9 @@ public class UserModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void addParking(ParkingModel parking){
+        parkings.add(parking);
     }
 }

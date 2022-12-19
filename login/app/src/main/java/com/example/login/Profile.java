@@ -41,8 +41,8 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // code to go back to the previous screen goes here
-                Toast.makeText(Profile.this, "In progress: add parking", Toast.LENGTH_SHORT).show();
-                //startActivity(new Intent(Profile.this, AddParking.class));
+                //Toast.makeText(Profile.this, "In progress: add parking", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Profile.this, AddParking.class));
             }
         });
 
