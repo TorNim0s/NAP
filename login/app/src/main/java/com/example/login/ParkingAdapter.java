@@ -2,7 +2,6 @@ package com.example.login;
 
 import android.content.Intent;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +16,9 @@ public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.MyViewHo
 
     Context context;
 
-    ArrayList<Park> list;
+    ArrayList<PostedParking> list;
 
-    public ParkingAdapter(Context context, ArrayList<Park> list) {
+    public ParkingAdapter(Context context, ArrayList<PostedParking> list) {
         this.context = context;
         this.list = list;
     }
@@ -33,11 +32,11 @@ public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Park park = list.get(position);
-        holder.parkOwnerFirstName.setText(park.parkingFirstName);
-        holder.parkingAddress.setText(park.parkingAddress);
-        holder.availableHours.setText(park.availableHours);
-        holder.Price.setText(park.Price);
+        PostedParking postedParking = list.get(position);
+        holder.parkOwnerFirstName.setText(postedParking.parkingFirstName);
+        holder.parkingAddress.setText(postedParking.parkingAddress);
+        holder.availableHours.setText(postedParking.availableHours);
+        holder.Price.setText(postedParking.Price);
     }
 
     @Override

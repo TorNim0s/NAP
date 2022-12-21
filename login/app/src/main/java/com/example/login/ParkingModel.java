@@ -4,24 +4,25 @@ import com.google.firebase.database.PropertyName;
 
 public class ParkingModel {
 
-    @PropertyName("city")
+    private String ownerId;
     private String city;
-
-    @PropertyName("street")
     private String street;
 
-    @PropertyName("homeNum")
     private int homeNum;
+    private int ParkingNum;
 
     public ParkingModel(){
 
     }
 
-    public ParkingModel(String city, String street, int homeNum){
+    public ParkingModel(String id, String city, String street, int homeNum, int parkingNum){
+        this.ownerId = id;
         this.city = city;
         this.street = street;
         this.homeNum = homeNum;
+        this.ParkingNum = parkingNum;
     }
+
 
     public String getCity() {
         return city;
@@ -45,5 +46,17 @@ public class ParkingModel {
 
     public void setHomeNum(int homeNum) {
         this.homeNum = homeNum;
+    }
+
+    public void setParkingNum(int parkingNum) {
+        ParkingNum = parkingNum;
+    }
+
+    public int getParkingNum() {
+        return ParkingNum;
+    }
+
+    public String getId() {
+        return ownerId;
     }
 }
