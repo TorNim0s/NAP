@@ -1,5 +1,6 @@
 package com.example.login;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,11 +21,18 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Profile extends AppCompatActivity {
 
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Fetching Data...");
+        progressDialog.show();
 
         TextView parkingList = (TextView) findViewById(R.id.parkingList);
         parkingList.setOnClickListener(new View.OnClickListener() {
@@ -82,13 +90,16 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DocumentReference userDocRef = firestore.collection("User").document(user.getUid());
+        DocumentReference userDocRef = fireStore.collection("User").document(user.getUid());
 
         userDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                }
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
@@ -106,14 +117,15 @@ public class Profile extends AppCompatActivity {
 
                         TextView emailTextView = findViewById(R.id.email_text_view);
                         emailTextView.setText(email);
+
                         // now we can display the data in the appropriate views
                     } else {
                         // the user document doesn't exist, so we should show a Toast message and redirect the user to the login screen
                         Toast.makeText(Profile.this, "User data not found", Toast.LENGTH_SHORT).show();
                         Intent loginIntent = new Intent(Profile.this, SignIn.class);
                         startActivity(loginIntent);
-                        finish();
                     }
+
                 } else {
                     // there was an error retrieving the document, so we should show a Toast message
                     Toast.makeText(Profile.this, "Error retrieving user data", Toast.LENGTH_SHORT).show();

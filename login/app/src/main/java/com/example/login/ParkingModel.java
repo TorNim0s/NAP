@@ -1,7 +1,5 @@
 package com.example.login;
 
-import com.google.firebase.database.PropertyName;
-
 public class ParkingModel {
 
     private String ownerId;
@@ -11,9 +9,7 @@ public class ParkingModel {
     private int homeNum;
     private int ParkingNum;
 
-    public ParkingModel(){
-
-    }
+    public ParkingModel(){}
 
     public ParkingModel(String id, String city, String street, int homeNum, int parkingNum){
         this.ownerId = id;
@@ -48,12 +44,12 @@ public class ParkingModel {
         this.homeNum = homeNum;
     }
 
-    public void setParkingNum(int parkingNum) {
-        ParkingNum = parkingNum;
-    }
-
     public int getParkingNum() {
         return ParkingNum;
+    }
+
+    public void setParkingNum(int parkingNum) {
+        ParkingNum = parkingNum;
     }
 
     public String getId() {
