@@ -67,11 +67,6 @@ public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.MyViewHo
                     intent.putExtra("Price", Price.getText());
                     view.getContext().startActivity(intent);
 
-
-
-//                    Log.d("demo", "onClick: " + parkOwnerFirstName.getText() +
-//                            " - " + parkingAddress.getText() + " - " + availableHours.getText() +
-//                            " - " + Price.getText());
                 }
             });
         }

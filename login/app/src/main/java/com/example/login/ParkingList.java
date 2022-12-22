@@ -1,78 +1,99 @@
 package com.example.login;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.example.login.databinding.ActivityAddParkingBinding;
-import com.example.login.databinding.ActivityParkingListBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.Map;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import com.google.firebase.firestore.QuerySnapshot;
+import java.util.ArrayList;
+
 
 public class ParkingList extends AppCompatActivity {
 
-    ActivityParkingListBinding binding;
+
+    RecyclerView recyclerView;
+    ArrayList<ParkingModel> parkingModelArrayList;
+    OwnedParkingAdapter myAdapter;
     FirebaseFirestore firebaseFirestore;
+    FirebaseUser firebaseUser;
+    ProgressDialog progressDialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityParkingListBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_parking_list);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Fetching Data...");
+        progressDialog.show();
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         firebaseFirestore = FirebaseFirestore.getInstance();
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        parkingModelArrayList = new ArrayList<ParkingModel>();
+        myAdapter = new OwnedParkingAdapter(ParkingList.this, parkingModelArrayList);
 
-        CollectionReference parkingsRef = firebaseFirestore.collection("parkings");
-        Query query = parkingsRef.whereEqualTo("id", firebaseUser.getUid());
+        recyclerView.setAdapter(myAdapter);
 
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        // do something with the document
-//                        Map<String, Object> data = document.getData();
-//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                            data.forEach((key, value) -> {
-//                                Log.d("doc", key + ": " + value);
-//                            });
-//                        }
-                    }
-                } else {
-                    // handle error
-                }
-            }
-        });
+        EventChangeListener();
 
-
-
-
-
-        binding.back.setOnClickListener(new View.OnClickListener() {
+        MaterialButton backBtn = (MaterialButton) findViewById(R.id.back);
+        backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // code to go back to the previous screen goes here
                 startActivity(new Intent(ParkingList.this, Profile.class));
             }
         });
+    }
 
+    private void EventChangeListener() {
+        firebaseFirestore.collection("Parkings").whereEqualTo("id", firebaseUser.getUid())
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
+                if (error != null){
+                    if (progressDialog.isShowing()){
+                        progressDialog.dismiss();
+                    }
+                    Log.e("Firestore error", error.getMessage());
+                    return;
+                }
+                if (progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                }
+                for (DocumentChange dc : value.getDocumentChanges()){
+                    if (dc.getType() == DocumentChange.Type.ADDED){
+                        parkingModelArrayList.add(dc.getDocument().toObject(ParkingModel.class));
+                    }
 
+                    myAdapter.notifyDataSetChanged();
+
+                }
+            }
+        });
     }
 }
