@@ -26,8 +26,16 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-        TextView logoutText = (TextView) findViewById(R.id.logoutBtn);
+        TextView parkingList = (TextView) findViewById(R.id.parkingList);
+        parkingList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // code to go back to the previous screen goes here
+                startActivity(new Intent(Profile.this, ParkingList.class));
+            }
+        });
 
+        TextView logoutText = (TextView) findViewById(R.id.logoutBtn);
         logoutText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,8 +49,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // code to go back to the previous screen goes here
-                Toast.makeText(Profile.this, "In progress: add parking", Toast.LENGTH_SHORT).show();
-                //startActivity(new Intent(Profile.this, AddParking.class));
+                startActivity(new Intent(Profile.this, AddParking.class));
             }
         });
 

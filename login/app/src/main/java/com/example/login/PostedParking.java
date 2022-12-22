@@ -1,6 +1,6 @@
 package com.example.login;
 
-public class Park {
+public class PostedParking {
 
     String parkingFirstName, parkingAddress, availableHours, Price;
 

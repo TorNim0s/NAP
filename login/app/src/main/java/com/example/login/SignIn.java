@@ -7,27 +7,21 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.example.login.databinding.ActivitySigninBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.w3c.dom.Text;
 
 public class SignIn extends AppCompatActivity {
 
     ActivitySigninBinding binding;
-
     ProgressDialog progressDialog;
     FirebaseAuth firebaseAuth;
-    FirebaseFirestore firebaseFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,9 +92,7 @@ public class SignIn extends AppCompatActivity {
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent intent = new Intent(SignIn.this, MainActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(SignIn.this, MainActivity.class));
             }
         });
 

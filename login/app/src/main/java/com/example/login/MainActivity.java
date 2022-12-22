@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     DatabaseReference database;
     ParkingAdapter myAdapter;
-    ArrayList<Park> parkingList;
+    ArrayList<PostedParking> parkingList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Park parkItem = dataSnapshot.getValue(Park.class);
+                    PostedParking postedParkingItem = dataSnapshot.getValue(PostedParking.class);
 
-                    parkingList.add(parkItem);
+                    parkingList.add(postedParkingItem);
                 }
 
                 myAdapter.notifyDataSetChanged();
