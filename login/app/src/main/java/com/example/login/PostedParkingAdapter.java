@@ -12,26 +12,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.MyViewHolder> {
+public class PostedParkingAdapter extends RecyclerView.Adapter<PostedParkingAdapter.MyViewHolder> {
 
     Context context;
-
     ArrayList<PostedParking> list;
 
-    public ParkingAdapter(Context context, ArrayList<PostedParking> list) {
+    public PostedParkingAdapter(Context context, ArrayList<PostedParking> list) {
         this.context = context;
         this.list = list;
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.parking_item,parent,false);
+    public PostedParkingAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(context).inflate(R.layout.posted_parking,parent,false);
         return new MyViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PostedParkingAdapter.MyViewHolder holder, int position) {
         PostedParking postedParking = list.get(position);
         holder.parkOwnerFirstName.setText(postedParking.parkingFirstName);
         holder.parkingAddress.setText(postedParking.parkingAddress);
@@ -50,13 +49,12 @@ public class ParkingAdapter extends RecyclerView.Adapter<ParkingAdapter.MyViewHo
 
         public MyViewHolder(@NonNull View itemView){
             super(itemView);
+            parkOwnerFirstName = itemView.findViewById(R.id.owner);
+            parkingAddress = itemView.findViewById(R.id.address);
+            availableHours = itemView.findViewById(R.id.availableHours);
+            Price = itemView.findViewById(R.id.price);
 
-            parkOwnerFirstName = itemView.findViewById(R.id.parkingFirstName);
-            parkingAddress = itemView.findViewById(R.id.parkingAddress);
-            availableHours = itemView.findViewById(R.id.parkingAvailableHours);
-            Price = itemView.findViewById(R.id.parkingPrice);
-
-            itemView.findViewById(R.id.parkingMoreInfo).setOnClickListener(new View.OnClickListener() {
+            itemView.findViewById(R.id.moreInfo).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 

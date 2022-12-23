@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     DatabaseReference database;
-    ParkingAdapter myAdapter;
+    PostedParkingAdapter myAdapter;
     ArrayList<PostedParking> parkingList;
 
     @Override
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         parkingList = new ArrayList<>();
-        myAdapter = new ParkingAdapter(this,parkingList);
+        myAdapter = new PostedParkingAdapter(this,parkingList);
         recyclerView.setAdapter(myAdapter);
 
         database.addValueEventListener(new ValueEventListener() {
