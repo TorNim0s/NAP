@@ -20,7 +20,6 @@
             android:id="@+id/backBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignParentLeft="true"
             android:src="@drawable/ic_arrow_back" />
 
         <TextView
@@ -30,31 +29,30 @@
             android:gravity="center"
             android:text="Account Settings"
             android:textColor="@color/white"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/logoutBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:text="Logout"
             android:textColor="@color/white"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textStyle="normal" />
 
     </LinearLayout>
 
 
     <View
+        android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/linear_ll"
+        android:layout_marginBottom="20dp"
         android:background="@color/white"
         android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:id="@+id/line"
-        android:layout_marginBottom="20dp"/>
+        android:paddingRight="8dp" />
 
     <LinearLayout
         android:id="@+id/info"
@@ -70,26 +68,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_person"
                 android:layout_marginStart="10dp"
-                android:layout_alignParentEnd="true"/>
+                android:src="@drawable/ic_person" />
 
             <TextView
                 android:id="@+id/name_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10dp"
                 android:gravity="center"
                 android:text="YourName"
                 android:textColor="@color/white"
-                android:layout_marginStart="10dp"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="normal" />
 
         </LinearLayout>
@@ -98,28 +94,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_baseline_phone_24"
                 android:layout_marginStart="10dp"
-                android:layout_alignParentEnd="true"/>
+                android:src="@drawable/ic_baseline_phone_24" />
 
             <TextView
                 android:id="@+id/number_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/name_text_view"
-                android:layout_alignParentEnd="true"
                 android:layout_marginStart="10dp"
+                android:gravity="center"
                 android:text="number"
                 android:textColor="@color/white"
-                android:textSize="20dp"
-                android:textStyle="normal"
-                android:gravity="center"/>
+                android:textSize="20sp"
+                android:textStyle="normal" />
         </LinearLayout>
 
         <LinearLayout
@@ -128,196 +121,116 @@
             android:layout_gravity="center_vertical"
             android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_email"
-                    android:layout_marginStart="10dp"
-                    android:layout_alignParentEnd="true"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_email" />
 
-                <TextView
-                    android:id="@+id/email_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/number_text_view"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginStart="10dp"
-                    android:text="user@email.com"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    android:textStyle="normal" />
+            <TextView
+                android:id="@+id/email_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="user@email.com"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="normal" />
         </LinearLayout>
 
 
     </LinearLayout>
 
-
-<!--    <ImageView-->
-<!--        android:layout_width="30dp"-->
-<!--        android:layout_height="30dp"-->
-<!--        android:src="@drawable/ic_person"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_marginTop="240dp"-->
-<!--        android:layout_marginEnd="280dp"-->
-<!--        android:layout_marginStart="30dp"/>-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/name_text_view"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_marginStart="100dp"-->
-<!--        android:layout_marginTop="240dp"-->
-<!--        android:layout_marginEnd="176dp"-->
-<!--        android:gravity="center"-->
-<!--        android:text="YourName"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="13dp"-->
-<!--        android:textStyle="normal" />-->
-
-<!--    <ImageView-->
-<!--        android:layout_width="30dp"-->
-<!--        android:layout_height="30dp"-->
-<!--        android:src="@drawable/ic_baseline_phone_24"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_marginTop="295dp"-->
-<!--        android:layout_marginEnd="280dp"/>-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/number_text_view"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@+id/name_text_view"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_marginStart="100dp"-->
-<!--        android:layout_marginTop="40dp"-->
-<!--        android:layout_marginEnd="163dp"-->
-<!--        android:text="number"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="13dp"-->
-<!--        android:textStyle="normal"-->
-<!--        android:gravity="center"/>-->
-
-<!--    <ImageView-->
-<!--        android:layout_width="30dp"-->
-<!--        android:layout_height="30dp"-->
-<!--        android:src="@drawable/ic_email"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_marginTop="350dp"-->
-<!--        android:layout_marginEnd="280dp"/>-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/email_text_view"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@+id/number_text_view"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_marginStart="100dp"-->
-<!--        android:layout_marginTop="40dp"-->
-<!--        android:layout_marginEnd="97dp"-->
-<!--        android:text="user@email.com"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="13dp"-->
-<!--        android:textStyle="normal" />-->
-
     <TextView
-        android:layout_width="210dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_btn"
-        android:text="Owned Parkings"
         android:id="@+id/parkingList"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        android:drawableLeft="@drawable/ic_baseline_format_list_bulleted_24"
-        android:paddingLeft="20dp"
-        android:layout_marginLeft="-10dp"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/info"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="50dp"
-        android:layout_marginStart="100dp"/>
+        android:background="@drawable/bg_btn"
+        android:gravity="center"
+        android:paddingStart="20dp"
+        android:text="Owned Parkings"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:drawableLeftCompat="@drawable/ic_baseline_format_list_bulleted_24" />
 
     <TextView
-        android:layout_width="210dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_btn"
-        android:text="Rented Parkings"
         android:id="@+id/rentedList"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        android:drawableLeft="@drawable/ic_baseline_format_list_bulleted_24"
-        android:paddingLeft="20dp"
-        android:layout_marginLeft="-10dp"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/parkingList"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="100dp"/>
+        android:background="@drawable/bg_btn"
+        android:gravity="center"
+        android:paddingStart="20dp"
+        android:text="Rented Parkings"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:drawableLeftCompat="@drawable/ic_baseline_format_list_bulleted_24" />
 
     <TextView
-        android:layout_width="210dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_btn"
-        android:text="Posted Parkings"
         android:id="@+id/postedList"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        android:drawableLeft="@drawable/ic_baseline_format_list_bulleted_24"
-        android:paddingLeft="20dp"
-        android:layout_marginLeft="-10dp"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/rentedList"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="100dp"/>
+        android:background="@drawable/bg_btn"
+        android:gravity="center"
+        android:paddingStart="20dp"
+        android:text="Posted Parkings"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:drawableLeftCompat="@drawable/ic_baseline_format_list_bulleted_24" />
 
     <TextView
-        android:layout_width="210dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_btn"
-        android:text="Add a parking"
         android:id="@+id/addParking"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        android:drawableLeft="@drawable/ic_baseline_local_parking_24"
-        android:paddingLeft="20dp"
-        android:layout_marginLeft="-10dp"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/postedList"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="100dp"/>
+        android:background="@drawable/bg_btn"
+        android:gravity="center"
+        android:paddingStart="20dp"
+        android:text="Add a parking"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:drawableLeftCompat="@drawable/ic_baseline_local_parking_24" />
 
 
     <TextView
-        android:layout_width="210dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_btn"
-        android:text="Edit Profile"
         android:id="@+id/editProfile"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        android:drawableLeft="@drawable/ic_edit"
-        android:paddingLeft="20dp"
-        android:layout_marginLeft="-10dp"
-        android:layout_below="@+id/addParking"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="100dp"
-        />
-
-    <TextView
         android:layout_width="210dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_btn"
-        android:text="Change password"
-        android:id="@+id/changePassword"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        android:drawableLeft="@drawable/ic_lock"
-        android:paddingLeft="20dp"
-        android:layout_marginLeft="-10dp"
-        android:layout_below="@+id/editProfile"
-        android:layout_marginTop="20dp"
+        android:layout_below="@+id/addParking"
         android:layout_marginStart="100dp"
-        />
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_btn"
+        android:gravity="center"
+        android:paddingStart="20dp"
+        android:text="Edit Profile"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:drawableLeftCompat="@drawable/ic_edit" />
+
+    <TextView
+        android:id="@+id/changePassword"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editProfile"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_btn"
+        android:gravity="center"
+        android:paddingStart="20dp"
+        android:text="Change password"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:drawableLeftCompat="@drawable/ic_lock" />
 
 
 </RelativeLayout>

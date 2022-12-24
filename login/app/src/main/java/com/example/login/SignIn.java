@@ -9,13 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-
 import com.example.login.databinding.ActivitySigninBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
 
 public class SignIn extends AppCompatActivity {
 

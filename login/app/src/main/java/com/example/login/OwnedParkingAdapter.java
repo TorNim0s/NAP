@@ -43,7 +43,7 @@ public class OwnedParkingAdapter extends RecyclerView.Adapter<OwnedParkingAdapte
         return parkingArrayList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView city, street, homeNum, parkingNum;
 

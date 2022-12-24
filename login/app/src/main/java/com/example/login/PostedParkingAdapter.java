@@ -2,7 +2,6 @@ package com.example.login;
 
 import android.content.Intent;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +23,9 @@ public class PostedParkingAdapter extends RecyclerView.Adapter<PostedParkingAdap
 
     FirebaseFirestore firebaseFirestore;
     Context context;
-    ArrayList<PostedParking> list;
+    ArrayList<ActiveParking> list;
 
-    public PostedParkingAdapter(Context context, ArrayList<PostedParking> list) {
+    public PostedParkingAdapter(Context context, ArrayList<ActiveParking> list) {
         this.context = context;
         this.list = list;
     }
@@ -34,16 +33,16 @@ public class PostedParkingAdapter extends RecyclerView.Adapter<PostedParkingAdap
     @NonNull
     @Override
     public PostedParkingAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.posted_parking,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.posted_parking, parent, false);
         return new MyViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PostedParkingAdapter.MyViewHolder holder, int position) {
-        PostedParking postedParking = list.get(position);
+        ActiveParking activeParking = list.get(position);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
-        String parkingId = postedParking.parkingId;
+        String parkingId = activeParking.parkingId;
         DocumentReference parkingRef = firebaseFirestore.collection("Parkings").document(parkingId);
         holder.parkingId.setText(parkingId);
         parkingRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -78,20 +77,20 @@ public class PostedParkingAdapter extends RecyclerView.Adapter<PostedParkingAdap
             }
         });
 
-        holder.availableHours.setText(postedParking.availableHours);
-        holder.price.setText(postedParking.price);
+        holder.availableHours.setText(activeParking.availableHours);
+        holder.price.setText(activeParking.price);
     }
 
     @Override
     public int getItemCount() {
         return list.size();
-}
+    }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView owner, parkingAddress, availableHours, price, parkingId;
 
-        public MyViewHolder(@NonNull View itemView){
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             owner = itemView.findViewById(R.id.owner);
             parkingAddress = itemView.findViewById(R.id.address);

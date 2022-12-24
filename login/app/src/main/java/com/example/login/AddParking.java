@@ -7,12 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-
 import com.example.login.databinding.ActivityAddParkingBinding;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
@@ -42,7 +39,7 @@ public class AddParking extends AppCompatActivity {
 
                 Toast.makeText(AddParking.this, "Parking added successfully", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(AddParking.this, Profile.class));
-                }
+            }
 
         });
 

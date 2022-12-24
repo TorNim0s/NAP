@@ -11,36 +11,30 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-
-public class ParkingList extends AppCompatActivity {
-
+public class PostedList extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    ArrayList<ParkingModel> parkingModelArrayList;
-    OwnedParkingAdapter myAdapter;
+    ArrayList<ActiveParking> parkingModelArrayList;
+    ActiveParkingAdapter myAdapter;
     FirebaseFirestore firebaseFirestore;
     FirebaseUser firebaseUser;
     ProgressDialog progressDialog;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_parking_list);
+        setContentView(R.layout.activity_posted_list);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -53,8 +47,8 @@ public class ParkingList extends AppCompatActivity {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        parkingModelArrayList = new ArrayList<ParkingModel>();
-        myAdapter = new OwnedParkingAdapter(ParkingList.this, parkingModelArrayList);
+        parkingModelArrayList = new ArrayList<ActiveParking>();
+        myAdapter = new ActiveParkingAdapter(PostedList.this, parkingModelArrayList);
 
         recyclerView.setAdapter(myAdapter);
 
@@ -65,13 +59,13 @@ public class ParkingList extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // code to go back to the previous screen goes here
-                startActivity(new Intent(ParkingList.this, Profile.class));
+                startActivity(new Intent(PostedList.this, Profile.class));
             }
         });
     }
 
     private void EventChangeListener() {
-        firebaseFirestore.collection("Parkings").whereEqualTo("id", firebaseUser.getUid())
+        firebaseFirestore.collection("PostedParking")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -88,7 +82,8 @@ public class ParkingList extends AppCompatActivity {
                         }
                         for (DocumentChange dc : value.getDocumentChanges()) {
                             if (dc.getType() == DocumentChange.Type.ADDED) {
-                                parkingModelArrayList.add(dc.getDocument().toObject(ParkingModel.class));
+                                ActiveParking activeParking = dc.getDocument().toObject(ActiveParking.class);
+                                parkingModelArrayList.add(activeParking);
                             }
 
                             myAdapter.notifyDataSetChanged();

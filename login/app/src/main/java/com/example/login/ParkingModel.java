@@ -9,9 +9,10 @@ public class ParkingModel {
     private int homeNum;
     private int ParkingNum;
 
-    public ParkingModel(){}
+    public ParkingModel() {
+    }
 
-    public ParkingModel(String id, String city, String street, int homeNum, int parkingNum){
+    public ParkingModel(String id, String city, String street, int homeNum, int parkingNum) {
         this.ownerId = id;
         this.city = city;
         this.street = street;
