@@ -34,15 +34,6 @@ public class Profile extends AppCompatActivity {
         progressDialog.setMessage("Fetching Data...");
         progressDialog.show();
 
-        TextView parkingList = (TextView) findViewById(R.id.parkingList);
-        parkingList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // code to go back to the previous screen goes here
-                startActivity(new Intent(Profile.this, ParkingList.class));
-            }
-        });
-
         TextView logoutText = (TextView) findViewById(R.id.logoutBtn);
         logoutText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,11 +43,28 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        TextView parkingList = (TextView) findViewById(R.id.parkingList);
+        parkingList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Profile.this, ParkingList.class));
+            }
+        });
+
+        TextView rentedList = (TextView) findViewById(R.id.rentedList);
+        rentedList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(Profile.this, "In progress: List of rented parking", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Profile.this, RentedList.class));
+            }
+        });
+
+
         TextView addParking = (TextView) findViewById(R.id.addParking);
         addParking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // code to go back to the previous screen goes here
                 startActivity(new Intent(Profile.this, AddParking.class));
             }
         });
@@ -65,7 +73,6 @@ public class Profile extends AppCompatActivity {
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // code to go back to the previous screen goes here
                 Toast.makeText(Profile.this, "In progress: edit profile", Toast.LENGTH_SHORT).show();
                 //startActivity(new Intent(Profile.this, AddParking.class));
             }
@@ -75,7 +82,6 @@ public class Profile extends AppCompatActivity {
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // code to go back to the previous screen goes here
                 Toast.makeText(Profile.this, "In progress: change password", Toast.LENGTH_SHORT).show();
                 //startActivity(new Intent(Profile.this, AddParking.class));
             }

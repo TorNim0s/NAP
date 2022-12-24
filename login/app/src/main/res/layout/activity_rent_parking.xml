@@ -54,7 +54,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="20dp"
-        android:text="Cost: "
+        android:text="Hourly price: "
         android:background="#30ffffff"
         android:drawablePadding="20dp"
         android:padding="20dp"
