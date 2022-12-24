@@ -60,11 +60,11 @@ public class Profile extends AppCompatActivity {
         });
 
         TextView postedList = (TextView) findViewById(R.id.postedList);
-        rentedList.setOnClickListener(new View.OnClickListener() {
+        postedList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Profile.this, "In progress: List of posted parking", Toast.LENGTH_SHORT).show();
-                //startActivity(new Intent(Profile.this, PostedList.class));
+                //Toast.makeText(Profile.this, "In progress: List of posted parking", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Profile.this, PostedList.class));
             }
         });
 
@@ -111,7 +111,7 @@ public class Profile extends AppCompatActivity {
         userDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (progressDialog.isShowing()){
+                if (progressDialog.isShowing()) {
                     progressDialog.dismiss();
                 }
                 if (task.isSuccessful()) {
@@ -148,9 +148,7 @@ public class Profile extends AppCompatActivity {
         });
 
 
-
     }
-
 
 
 }

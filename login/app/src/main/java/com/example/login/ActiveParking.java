@@ -1,14 +1,15 @@
 package com.example.login;
 
-public class PostedParking {
+public class ActiveParking {
 
     String availableHours, price;
     String parkingId, status;
     String renterId;
 
-    public PostedParking (){}
+    public ActiveParking() {
+    }
 
-    public PostedParking(String availableHours, String price, String parkingId, String status) {
+    public ActiveParking(String availableHours, String price, String parkingId, String status) {
         this.availableHours = availableHours;
         this.price = price;
         this.parkingId = parkingId;

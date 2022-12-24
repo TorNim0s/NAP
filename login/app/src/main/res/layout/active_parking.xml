@@ -24,13 +24,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Owner : "
+                android:text="Status : "
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/owner"
+                android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -121,16 +121,17 @@
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/moreInfo"
-        android:layout_width="115dp"
+        android:id="@+id/remove"
+        android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="240dp"
+        android:layout_marginStart="230dp"
         android:layout_marginTop="45dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/purple_200"
-        android:text="Cancel lease"
-        android:textSize="10sp" />
+        android:text="Remove listing"
+        android:textSize="9sp" />
+
 
 </androidx.cardview.widget.CardView>

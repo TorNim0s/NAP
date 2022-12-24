@@ -11,7 +11,6 @@
         android:id="@+id/postParking"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="40dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="50dp"
@@ -19,6 +18,7 @@
         android:gravity="center"
         android:text="Post Parking"
         android:textColor="@color/white"
+        android:textSize="40sp"
         android:textStyle="bold" />
 
     <Spinner
@@ -30,7 +30,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
         android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"/>
+        android:spinnerMode="dropdown" />
 
     <EditText
         android:id="@+id/Cost"
@@ -42,7 +42,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="#30ffffff"
-        android:drawableLeft="@drawable/ic_baseline_attach_money_24"
+        android:drawableStart="@drawable/ic_baseline_attach_money_24"
         android:drawablePadding="20dp"
         android:hint="Cost: "
         android:padding="20dp"
@@ -59,9 +59,9 @@
         android:layout_marginEnd="10dp"
         android:background="#30ffffff"
         android:drawablePadding="20dp"
-        android:textColor="@color/white"
-        android:text="00:00"
         android:onClick="popTimePicker"
+        android:text="00:00"
+        android:textColor="@color/white"
         android:textColorHint="@color/white" />
 
     <TextView
@@ -74,13 +74,13 @@
         android:layout_marginEnd="200dp"
         android:layout_marginBottom="5dp"
         android:background="#30ffffff"
-        android:drawableLeft="@drawable/ic_baseline_access_time_24"
         android:drawablePadding="20dp"
-        android:text="From: "
-        android:textSize="17sp"
         android:padding="20dp"
+        android:text="From: "
         android:textColor="@color/white"
-        android:textColorHint="@color/white" />
+        android:textColorHint="@color/white"
+        android:textSize="17sp"
+        app:drawableStartCompat="@drawable/ic_baseline_access_time_24" />
 
     <Button
         android:id="@+id/timeUntil"
@@ -92,9 +92,9 @@
         android:layout_marginEnd="10dp"
         android:background="#30ffffff"
         android:drawablePadding="20dp"
-        android:textColor="@color/white"
-        android:text="00:00"
         android:onClick="popTimePicker"
+        android:text="00:00"
+        android:textColor="@color/white"
         android:textColorHint="@color/white" />
 
     <TextView
@@ -107,13 +107,13 @@
         android:layout_marginEnd="200dp"
         android:layout_marginBottom="5dp"
         android:background="#30ffffff"
-        android:drawableLeft="@drawable/ic_baseline_access_time_24"
         android:drawablePadding="20dp"
-        android:text="Until: "
-        android:textSize="17sp"
         android:padding="20dp"
+        android:text="Until: "
         android:textColor="@color/white"
-        android:textColorHint="@color/white" />
+        android:textColorHint="@color/white"
+        android:textSize="17sp"
+        app:drawableLeftCompat="@drawable/ic_baseline_access_time_24" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/postbtn"
@@ -140,7 +140,7 @@
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/purple_200"
         android:text="back"
-        android:textSize="10dp" />
+        android:textSize="10sp" />
 
 
 </RelativeLayout>

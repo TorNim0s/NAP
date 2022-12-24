@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,28 +16,18 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.concurrent.ExecutionException;
 
 public class PostParking extends AppCompatActivity {
 
@@ -52,7 +41,6 @@ public class PostParking extends AppCompatActivity {
     FirebaseUser firebaseUser;
     ArrayList<String> parkingList;
     ArrayAdapter<String> adapter;
-
     HashMap<String, String> map;
 
 
@@ -87,7 +75,7 @@ public class PostParking extends AppCompatActivity {
             public void onClick(View view) {
                 String availableHours = timeFrom.getText().toString() + " - " + timeUntil.getText().toString();
                 String price = cost.getText().toString() + " Shekels";
-                String selectedItem =(String) dropdown.getSelectedItem();
+                String selectedItem = (String) dropdown.getSelectedItem();
                 String selectedParkingId = map.get(selectedItem);
 
 //                CollectionReference usersRef = firebaseFirestore.collection("PostedParking");
@@ -108,12 +96,11 @@ public class PostParking extends AppCompatActivity {
 //                        }
 //                    }
 //                });
-                PostedParking postedParking = new PostedParking(availableHours, price, selectedParkingId, "Available");
-                firebaseFirestore.collection("PostedParking").add(postedParking);
+                ActiveParking activeParking = new ActiveParking(availableHours, price, selectedParkingId, "Available");
+                firebaseFirestore.collection("PostedParking").add(activeParking);
 
                 Toast.makeText(PostParking.this, "Parking posted successfully", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(PostParking.this, MainActivity.class));
-
             }
         });
 
@@ -131,12 +118,12 @@ public class PostParking extends AppCompatActivity {
         TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectHour, int selectMinute) {
-                if (view.getId() == R.id.timeFrom){
+                if (view.getId() == R.id.timeFrom) {
                     hourFrom = selectHour;
                     minuteFrom = selectMinute;
                     timeFrom.setText(String.format(Locale.getDefault(), "%02d:%02d", hourFrom, minuteFrom));
                 }
-                if (view.getId() == R.id.timeUntil){
+                if (view.getId() == R.id.timeUntil) {
                     hourUntil = selectHour;
                     minuteUntil = selectMinute;
                     timeUntil.setText(String.format(Locale.getDefault(), "%02d:%02d", hourUntil, minuteUntil));
@@ -157,27 +144,27 @@ public class PostParking extends AppCompatActivity {
 
     private void EventChangeListener() {
         firebaseFirestore.collection("Parkings").whereEqualTo("id", firebaseUser.getUid())
-            .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                @Override
-                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                    if (error != null){
-                        Log.e("Firestore error", error.getMessage());
-                        return;
-                    }
-                    for (DocumentChange dc : value.getDocumentChanges()){
-                        if (dc.getType() == DocumentChange.Type.ADDED){
-                            String city = dc.getDocument().getString("city");
-                            String street = dc.getDocument().getString("street");
-                            String homeNum = String.valueOf(dc.getDocument().get("homeNum"));
-                            String parkingNum = String.valueOf(dc.getDocument().get("parkingNum"));
-                            String address = city + ", " + street + " " + homeNum + ", " + parkingNum;
-                            map.put(address, dc.getDocument().getId());
-                            parkingList.add(address);
+                        if (error != null) {
+                            Log.e("Firestore error", error.getMessage());
+                            return;
                         }
+                        for (DocumentChange dc : value.getDocumentChanges()) {
+                            if (dc.getType() == DocumentChange.Type.ADDED) {
+                                String city = dc.getDocument().getString("city");
+                                String street = dc.getDocument().getString("street");
+                                String homeNum = String.valueOf(dc.getDocument().get("homeNum"));
+                                String parkingNum = String.valueOf(dc.getDocument().get("parkingNum"));
+                                String address = city + ", " + street + " " + homeNum + ", " + parkingNum;
+                                map.put(address, dc.getDocument().getId());
+                                parkingList.add(address);
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
                     }
-                    adapter.notifyDataSetChanged();
-                }
-            });
+                });
     }
 }

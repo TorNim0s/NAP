@@ -42,7 +42,7 @@ public class AddParking extends AppCompatActivity {
 
                 Toast.makeText(AddParking.this, "Parking added successfully", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(AddParking.this, Profile.class));
-                }
+            }
 
         });
 

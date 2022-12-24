@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     PostedParkingAdapter myAdapter;
-    ArrayList<PostedParking> parkingList;
+    ArrayList<ActiveParking> parkingList;
     FirebaseFirestore firebaseFirestore;
     ProgressDialog progressDialog;
 
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             //User is Logged in
             loginBtn.setVisibility(View.GONE); // Delete loginBtn if already in user
             profileBtn.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             postParkingBtn.setVisibility(View.GONE);
             //No User is Logged in
         }
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         parkingList = new ArrayList<>();
-        myAdapter = new PostedParkingAdapter(this,parkingList);
+        myAdapter = new PostedParkingAdapter(this, parkingList);
         recyclerView.setAdapter(myAdapter);
 
         EventChangeListener();
@@ -94,33 +94,33 @@ public class MainActivity extends AppCompatActivity {
 
     private void EventChangeListener() {
         firebaseFirestore.collection("PostedParking")
-            .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                @Override
-                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                    if (error != null){
-                        if (progressDialog.isShowing()){
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+                            Log.e("Firestore error", error.getMessage());
+                            return;
+                        }
+
+                        for (DocumentChange dc : value.getDocumentChanges()) {
+                            if (dc.getType() == DocumentChange.Type.ADDED) {
+                                ActiveParking activeParking = dc.getDocument().toObject(ActiveParking.class);
+                                if (activeParking.status.equals("Available")) {
+                                    parkingList.add(activeParking);
+                                }
+                            }
+
+                            myAdapter.notifyDataSetChanged();
+
+                        }
+                        if (progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
-                        Log.e("Firestore error", error.getMessage());
-                        return;
                     }
-
-                    for (DocumentChange dc : value.getDocumentChanges()){
-                        if (dc.getType() == DocumentChange.Type.ADDED){
-                            PostedParking postedParking = dc.getDocument().toObject(PostedParking.class);
-                            if (postedParking.status.equals("Available")){
-                                parkingList.add(postedParking);
-                            }
-                        }
-
-                        myAdapter.notifyDataSetChanged();
-
-                    }
-                    if (progressDialog.isShowing()){
-                        progressDialog.dismiss();
-                    }
-                }
-            });
+                });
     }
 
 }

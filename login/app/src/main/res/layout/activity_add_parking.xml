@@ -11,7 +11,6 @@
         android:id="@+id/addParking"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="40dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="50dp"
@@ -19,6 +18,7 @@
         android:gravity="center"
         android:text="Add parking"
         android:textColor="@color/white"
+        android:textSize="40sp"
         android:textStyle="bold" />
 
     <TextView
@@ -29,8 +29,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="50dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
         android:layout_marginEnd="50dp"
+        android:layout_marginBottom="10dp"
         android:text="Fill the information about your parking"
         android:textColor="@color/white" />
 
@@ -44,12 +44,12 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="#30ffffff"
-        android:drawableLeft="@drawable/ic_baseline_location_city_24"
+        android:drawableStart="@drawable/ic_baseline_location_city_24"
         android:drawablePadding="20dp"
         android:hint="City"
         android:padding="20dp"
         android:textColor="@color/white"
-        android:textColorHint="@color/white"/>
+        android:textColorHint="@color/white" />
 
     <EditText
         android:id="@+id/street"
@@ -61,12 +61,12 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="#30ffffff"
-        android:drawableLeft="@drawable/ic_baseline_home_24"
+        android:drawableStart="@drawable/ic_baseline_home_24"
         android:drawablePadding="20dp"
         android:hint="Street"
         android:padding="20dp"
         android:textColor="@color/white"
-        android:textColorHint="@color/white"/>
+        android:textColorHint="@color/white" />
 
     <EditText
         android:id="@+id/homeNum"
@@ -78,13 +78,13 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="#30ffffff"
-        android:drawableLeft="@drawable/ic_baseline_numbers_24"
+        android:drawableStart="@drawable/ic_baseline_numbers_24"
         android:drawablePadding="20dp"
         android:hint="Home Number"
         android:inputType="number"
         android:padding="20dp"
         android:textColor="@color/white"
-        android:textColorHint="@color/white"/>
+        android:textColorHint="@color/white" />
 
     <EditText
         android:id="@+id/parkingNum"
@@ -96,13 +96,13 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="#30ffffff"
-        android:drawableLeft="@drawable/ic_baseline_numbers_24"
+        android:drawableStart="@drawable/ic_baseline_numbers_24"
         android:drawablePadding="20dp"
         android:hint="Parking Number"
         android:inputType="number"
         android:padding="20dp"
         android:textColor="@color/white"
-        android:textColorHint="@color/white"/>
+        android:textColorHint="@color/white" />
 
     <TextView
         android:id="@+id/file"
@@ -112,10 +112,10 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:text="Proof of ownership, attach pdf file or image"
         android:background="#30ffffff"
         android:drawablePadding="20dp"
         android:padding="20dp"
+        android:text="Proof of ownership, attach pdf file or image"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
 
@@ -144,6 +144,6 @@
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/purple_200"
         android:text="back"
-        android:textSize="10dp" />
+        android:textSize="10sp" />
 
 </RelativeLayout>

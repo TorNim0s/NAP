@@ -42,10 +42,10 @@ public class RentParking extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        TextView address = (TextView)findViewById(R.id.address);
-        TextView owner = (TextView)findViewById(R.id.owner);
-        TextView cost = (TextView)findViewById(R.id.cost);
-        TextView available = (TextView)findViewById(R.id.available);
+        TextView address = (TextView) findViewById(R.id.address);
+        TextView owner = (TextView) findViewById(R.id.owner);
+        TextView cost = (TextView) findViewById(R.id.cost);
+        TextView available = (TextView) findViewById(R.id.available);
         MaterialButton rentBtn = (MaterialButton) findViewById(R.id.rent);
 
         Bundle bundle = getIntent().getExtras();
@@ -80,7 +80,7 @@ public class RentParking extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult().getDocuments().get(0);
-                            if (!ownerId.equals(firebaseUser.getUid())){
+                            if (!ownerId.equals(firebaseUser.getUid())) {
                                 Map<String, Object> updates = new HashMap<>();
                                 updates.put("status", "Rented");
                                 updates.put("renterId", firebaseUser.getUid());
@@ -90,7 +90,7 @@ public class RentParking extends AppCompatActivity {
                             } else {
                                 Toast.makeText(RentParking.this, "You can't rent your own parking", Toast.LENGTH_SHORT).show();
                             }
-                        }  else {
+                        } else {
                             Toast.makeText(RentParking.this, "Error retrieving parking data", Toast.LENGTH_SHORT).show();
                         }
                     }

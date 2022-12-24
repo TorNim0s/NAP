@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class RentedList extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    ArrayList<PostedParking> parkingModelArrayList;
+    ArrayList<ActiveParking> parkingModelArrayList;
     RentedParkingAdapter myAdapter;
     FirebaseFirestore firebaseFirestore;
     FirebaseUser firebaseUser;
@@ -47,7 +47,7 @@ public class RentedList extends AppCompatActivity {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        parkingModelArrayList = new ArrayList<PostedParking>();
+        parkingModelArrayList = new ArrayList<ActiveParking>();
         myAdapter = new RentedParkingAdapter(RentedList.this, parkingModelArrayList);
 
         recyclerView.setAdapter(myAdapter);
@@ -67,32 +67,32 @@ public class RentedList extends AppCompatActivity {
 
     private void EventChangeListener() {
         firebaseFirestore.collection("PostedParking").whereEqualTo("renterId", firebaseUser.getUid())
-            .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                @Override
-                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                    if (error != null){
-                        if (progressDialog.isShowing()){
+                        if (error != null) {
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+                            Log.e("Firestore error", error.getMessage());
+                            return;
+                        }
+                        if (progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
-                        Log.e("Firestore error", error.getMessage());
-                        return;
-                    }
-                    if (progressDialog.isShowing()){
-                        progressDialog.dismiss();
-                    }
-                    for (DocumentChange dc : value.getDocumentChanges()){
-                        if (dc.getType() == DocumentChange.Type.ADDED){
-                            PostedParking postedParking = dc.getDocument().toObject(PostedParking.class);
-                            if (postedParking.status.equals("Rented")){
-                                parkingModelArrayList.add(postedParking);
+                        for (DocumentChange dc : value.getDocumentChanges()) {
+                            if (dc.getType() == DocumentChange.Type.ADDED) {
+                                ActiveParking activeParking = dc.getDocument().toObject(ActiveParking.class);
+                                if (activeParking.status.equals("Rented")) {
+                                    parkingModelArrayList.add(activeParking);
+                                }
                             }
+
+                            myAdapter.notifyDataSetChanged();
+
                         }
-
-                        myAdapter.notifyDataSetChanged();
-
                     }
-                }
-            });
+                });
     }
 }
