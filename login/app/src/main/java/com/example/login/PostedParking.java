@@ -2,14 +2,18 @@ package com.example.login;
 
 public class PostedParking {
 
-    String parkingFirstName, parkingAddress, availableHours, Price;
+    String availableHours, price;
+    String parkingId, status;
+    String renterId;
 
-    public String getParkingFirstName() {
-        return parkingFirstName;
-    }
+    public PostedParking (){}
 
-    public String getParkingAddress() {
-        return parkingAddress;
+    public PostedParking(String availableHours, String price, String parkingId, String status) {
+        this.availableHours = availableHours;
+        this.price = price;
+        this.parkingId = parkingId;
+        this.status = status;
+        this.renterId = "";
     }
 
     public String getAvailableHours() {
@@ -17,6 +21,26 @@ public class PostedParking {
     }
 
     public String getPrice() {
-        return Price;
+        return price;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getParkingId() {
+        return parkingId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getRenterId() {
+        return renterId;
+    }
+
+    public void setRenterId(String renterId) {
+        this.renterId = renterId;
     }
 }

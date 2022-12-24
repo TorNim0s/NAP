@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Tel Aviv, Uri baron 19"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="13sp" />
 
