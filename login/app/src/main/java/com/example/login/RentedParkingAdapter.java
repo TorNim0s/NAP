@@ -1,8 +1,7 @@
 package com.example.login;
 
-import android.content.Intent;
 import android.content.Context;
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,33 +18,31 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-
-public class PostedParkingAdapter extends RecyclerView.Adapter<PostedParkingAdapter.MyViewHolder> {
+public class RentedParkingAdapter extends RecyclerView.Adapter<RentedParkingAdapter.MyViewHolder>{
 
     FirebaseFirestore firebaseFirestore;
     Context context;
     ArrayList<PostedParking> list;
 
-    public PostedParkingAdapter(Context context, ArrayList<PostedParking> list) {
+    public RentedParkingAdapter(Context context, ArrayList<PostedParking> list) {
         this.context = context;
         this.list = list;
     }
 
     @NonNull
     @Override
-    public PostedParkingAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.posted_parking,parent,false);
-        return new MyViewHolder(v);
+    public RentedParkingAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(context).inflate(R.layout.rented_parking,parent,false);
+        return new RentedParkingAdapter.MyViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PostedParkingAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RentedParkingAdapter.MyViewHolder holder, int position) {
         PostedParking postedParking = list.get(position);
-
         firebaseFirestore = FirebaseFirestore.getInstance();
+
         String parkingId = postedParking.parkingId;
         DocumentReference parkingRef = firebaseFirestore.collection("Parkings").document(parkingId);
-        holder.parkingId.setText(parkingId);
         parkingRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -85,11 +82,11 @@ public class PostedParkingAdapter extends RecyclerView.Adapter<PostedParkingAdap
     @Override
     public int getItemCount() {
         return list.size();
-}
+    }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView owner, parkingAddress, availableHours, price, parkingId;
+        TextView owner, parkingAddress, availableHours, price;
 
         public MyViewHolder(@NonNull View itemView){
             super(itemView);
@@ -97,23 +94,7 @@ public class PostedParkingAdapter extends RecyclerView.Adapter<PostedParkingAdap
             parkingAddress = itemView.findViewById(R.id.address);
             availableHours = itemView.findViewById(R.id.availableHours);
             price = itemView.findViewById(R.id.price);
-            parkingId = itemView.findViewById(R.id.parkingId);
 
-            itemView.findViewById(R.id.moreInfo).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    Intent intent = new Intent(view.getContext(), RentParking.class);
-                    intent.putExtra("Owner", owner.getText());
-                    intent.putExtra("Address", parkingAddress.getText());
-                    intent.putExtra("Hours", availableHours.getText());
-                    intent.putExtra("Price", price.getText());
-                    intent.putExtra("parkingId", parkingId.getText());
-                    view.getContext().startActivity(intent);
-
-                }
-            });
         }
     }
-
 }

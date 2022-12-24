@@ -45,19 +45,6 @@
 
     </LinearLayout>
 
-    <com.mikhaellopez.circularimageview.CircularImageView
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_below="@+id/linear_ll"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="58dp"
-        android:layout_marginEnd="160dp"
-        android:layout_marginBottom="40dp"
-        android:adjustViewBounds="true"
-        android:cropToPadding="true"
-        android:gravity="center"
-        android:id="@+id/img"
-        android:src="@drawable/person" />
 
     <View
         android:layout_width="match_parent"
@@ -65,16 +52,17 @@
         android:layout_below="@id/linear_ll"
         android:background="@color/white"
         android:paddingLeft="8dp"
-        android:paddingRight="8dp" />
+        android:paddingRight="8dp"
+        android:id="@+id/line"
+        android:layout_marginBottom="20dp"/>
 
     <LinearLayout
         android:id="@+id/info"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:layout_below="@+id/img"
+        android:layout_below="@+id/line"
         android:layout_marginVertical="6dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="23dp"
+        android:layout_marginStart="70dp"
         android:layout_marginEnd="10dp"
         android:orientation="vertical">
 
@@ -236,7 +224,7 @@
         android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_btn"
-        android:text="List of Parking"
+        android:text="Owned Parkings"
         android:id="@+id/parkingList"
         android:gravity="center"
         android:textColor="@color/white"
@@ -252,7 +240,39 @@
         android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_btn"
-        android:text="Add parking"
+        android:text="Rented Parkings"
+        android:id="@+id/rentedList"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:drawableLeft="@drawable/ic_baseline_format_list_bulleted_24"
+        android:paddingLeft="20dp"
+        android:layout_marginLeft="-10dp"
+        android:layout_below="@+id/parkingList"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="100dp"/>
+
+    <TextView
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_btn"
+        android:text="Posted Parkings"
+        android:id="@+id/postedList"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:drawableLeft="@drawable/ic_baseline_format_list_bulleted_24"
+        android:paddingLeft="20dp"
+        android:layout_marginLeft="-10dp"
+        android:layout_below="@+id/rentedList"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="100dp"/>
+
+    <TextView
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_btn"
+        android:text="Add a parking"
         android:id="@+id/addParking"
         android:gravity="center"
         android:textColor="@color/white"
@@ -260,7 +280,7 @@
         android:drawableLeft="@drawable/ic_baseline_local_parking_24"
         android:paddingLeft="20dp"
         android:layout_marginLeft="-10dp"
-        android:layout_below="@+id/parkingList"
+        android:layout_below="@+id/postedList"
         android:layout_marginTop="20dp"
         android:layout_marginStart="100dp"/>
 
