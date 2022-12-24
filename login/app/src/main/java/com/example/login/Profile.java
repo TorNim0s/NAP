@@ -55,8 +55,16 @@ public class Profile extends AppCompatActivity {
         rentedList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(Profile.this, "In progress: List of rented parking", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(Profile.this, RentedList.class));
+            }
+        });
+
+        TextView postedList = (TextView) findViewById(R.id.postedList);
+        rentedList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Profile.this, "In progress: List of posted parking", Toast.LENGTH_SHORT).show();
+                //startActivity(new Intent(Profile.this, PostedList.class));
             }
         });
 

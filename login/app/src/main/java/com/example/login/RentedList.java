@@ -67,32 +67,32 @@ public class RentedList extends AppCompatActivity {
 
     private void EventChangeListener() {
         firebaseFirestore.collection("PostedParking").whereEqualTo("renterId", firebaseUser.getUid())
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                        if (error != null){
-                            if (progressDialog.isShowing()){
-                                progressDialog.dismiss();
-                            }
-                            Log.e("Firestore error", error.getMessage());
-                            return;
-                        }
+                    if (error != null){
                         if (progressDialog.isShowing()){
                             progressDialog.dismiss();
                         }
-                        for (DocumentChange dc : value.getDocumentChanges()){
-                            if (dc.getType() == DocumentChange.Type.ADDED){
-                                PostedParking postedParking = dc.getDocument().toObject(PostedParking.class);
-                                if (postedParking.status.equals("Rented")){
-                                    parkingModelArrayList.add(postedParking);
-                                }
-                            }
-
-                            myAdapter.notifyDataSetChanged();
-
-                        }
+                        Log.e("Firestore error", error.getMessage());
+                        return;
                     }
-                });
+                    if (progressDialog.isShowing()){
+                        progressDialog.dismiss();
+                    }
+                    for (DocumentChange dc : value.getDocumentChanges()){
+                        if (dc.getType() == DocumentChange.Type.ADDED){
+                            PostedParking postedParking = dc.getDocument().toObject(PostedParking.class);
+                            if (postedParking.status.equals("Rented")){
+                                parkingModelArrayList.add(postedParking);
+                            }
+                        }
+
+                        myAdapter.notifyDataSetChanged();
+
+                    }
+                }
+            });
     }
 }

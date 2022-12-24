@@ -109,6 +109,4 @@ public class RentParking extends AppCompatActivity {
 
     }
 
-    // Load and use views afterwards
-
 }
