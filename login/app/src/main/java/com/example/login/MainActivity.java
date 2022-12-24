@@ -1,10 +1,13 @@
 package com.example.login;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
-import androidx.annotation.NonNull;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,20 +15,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    DatabaseReference database;
-    ParkingAdapter myAdapter;
+    PostedParkingAdapter myAdapter;
     ArrayList<PostedParking> parkingList;
+    FirebaseFirestore firebaseFirestore;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +40,14 @@ public class MainActivity extends AppCompatActivity {
         MaterialButton postParkingBtn = (MaterialButton) findViewById(R.id.PostParkingButton);
         MaterialButton profileBtn = (MaterialButton) findViewById(R.id.ProfileButton);
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Fetching Data...");
+        progressDialog.show();
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-//            loginBtn.setVisibility(View.GONE);
             //User is Logged in
             loginBtn.setVisibility(View.GONE); // Delete loginBtn if already in user
             profileBtn.setVisibility(View.VISIBLE);
@@ -49,32 +57,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         recyclerView = findViewById(R.id.parkingList);
-        database = FirebaseDatabase.getInstance().getReference("Parkings");
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        firebaseFirestore = FirebaseFirestore.getInstance();
+
         parkingList = new ArrayList<>();
-        myAdapter = new ParkingAdapter(this,parkingList);
+        myAdapter = new PostedParkingAdapter(this,parkingList);
         recyclerView.setAdapter(myAdapter);
 
-        database.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    PostedParking postedParkingItem = dataSnapshot.getValue(PostedParking.class);
-
-                    parkingList.add(postedParkingItem);
-                }
-
-                myAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        EventChangeListener();
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +90,37 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, Profile.class));
             }
         });
+    }
 
+    private void EventChangeListener() {
+        firebaseFirestore.collection("PostedParking")
+            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if (error != null){
+                        if (progressDialog.isShowing()){
+                            progressDialog.dismiss();
+                        }
+                        Log.e("Firestore error", error.getMessage());
+                        return;
+                    }
+
+                    for (DocumentChange dc : value.getDocumentChanges()){
+                        if (dc.getType() == DocumentChange.Type.ADDED){
+                            PostedParking postedParking = dc.getDocument().toObject(PostedParking.class);
+                            if (postedParking.status.equals("Available")){
+                                parkingList.add(postedParking);
+                            }
+                        }
+
+                        myAdapter.notifyDataSetChanged();
+
+                    }
+                    if (progressDialog.isShowing()){
+                        progressDialog.dismiss();
+                    }
+                }
+            });
     }
 
 }

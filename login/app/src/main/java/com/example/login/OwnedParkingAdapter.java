@@ -1,5 +1,7 @@
 package com.example.login;
 
+
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-
-import android.content.Context;
 
 public class OwnedParkingAdapter extends RecyclerView.Adapter<OwnedParkingAdapter.MyViewHolder> {
 
@@ -22,7 +22,6 @@ public class OwnedParkingAdapter extends RecyclerView.Adapter<OwnedParkingAdapte
         this.parkingArrayList = parkingArrayList;
     }
 
-
     @NonNull
     @Override
     public OwnedParkingAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,12 +32,10 @@ public class OwnedParkingAdapter extends RecyclerView.Adapter<OwnedParkingAdapte
     @Override
     public void onBindViewHolder(@NonNull OwnedParkingAdapter.MyViewHolder holder, int position) {
         ParkingModel parking = parkingArrayList.get(position);
-
         holder.city.setText(parking.getCity());
         holder.street.setText(parking.getStreet());
         holder.homeNum.setText(String.valueOf(parking.getHomeNum()));
         holder.parkingNum.setText(String.valueOf(parking.getParkingNum()));
-
     }
 
     @Override

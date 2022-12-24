@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    app:cardCornerRadius="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="8dp"
-    app:cardBackgroundColor="@color/cardColor">
+    app:cardCornerRadius="8dp"
+    android:layout_margin="16dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="90dp"
+        android:background="@drawable/cardbackground"
         android:orientation="vertical">
 
         <LinearLayout
+            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -22,19 +23,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:text="Owner : "
-                android:textColor="@color/black"
-                android:textSize="26sp"
+                android:textColor="@color/white"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/parkingFirstName"
+                android:id="@+id/owner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Eldad"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="13sp" />
 
         </LinearLayout>
 
@@ -47,19 +49,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:text="Address : "
-                android:textColor="@color/black"
-                android:textSize="26sp"
+                android:textColor="@color/white"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/parkingAddress"
+                android:id="@+id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Tel Aviv, Uri baron 19"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="13sp" />
 
         </LinearLayout>
 
@@ -67,24 +70,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Available : "
-                android:textColor="@color/black"
-                android:textSize="26sp"
+                android:textColor="@color/white"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/parkingAvailableHours"
+                android:id="@+id/availableHours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_marginLeft="8dp"
-                android:text="09:00 - 15:00"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="13sp" />
 
         </LinearLayout>
 
@@ -97,39 +102,37 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:text="Hourly Price: "
-                android:textColor="@color/black"
-                android:textSize="26sp"
+                android:textColor="@color/white"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/parkingPrice"
+                android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="5 Shekels"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="13sp" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/parkingMoreInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="More Info"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-            />
         </LinearLayout>
 
     </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/moreInfo"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/purple_200"
+        android:text="More info"
+        android:textSize="10sp" />
 
 
 </androidx.cardview.widget.CardView>

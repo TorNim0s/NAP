@@ -17,8 +17,8 @@ public class ParkingModel {
         this.street = street;
         this.homeNum = homeNum;
         this.ParkingNum = parkingNum;
-    }
 
+    }
 
     public String getCity() {
         return city;
@@ -52,7 +52,7 @@ public class ParkingModel {
         ParkingNum = parkingNum;
     }
 
-    public String getId() {
+    public String getOwnerId() {
         return ownerId;
     }
 }

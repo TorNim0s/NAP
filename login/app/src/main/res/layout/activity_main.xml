@@ -7,21 +7,29 @@
     android:background="@drawable/background"
     tools:context=".MainActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/mainUpperLayout">
-
         <TextView
             android:id="@+id/NAPTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="@string/app_name"
             android:textColor="@color/white"
             android:textSize="35sp"
             android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/availableParking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/NAPTitle"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Available parking"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/login"
@@ -46,33 +54,26 @@
             android:visibility="gone"
             android:text="Profile" />
 
-    </RelativeLayout>
 
-    <LinearLayout
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/PostParkingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="665dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/purple_200"
+        android:text="Post Parking" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/parkingList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_below="@id/mainUpperLayout">
+        android:layout_height="520dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="130dp" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/PostParkingButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/purple_200"
-            android:text="Post Parking" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/parkingList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_below="@id/PostParkingButton"/>
-
-    </LinearLayout>
 
 
 

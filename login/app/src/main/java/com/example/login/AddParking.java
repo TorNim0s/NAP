@@ -38,7 +38,7 @@ public class AddParking extends AppCompatActivity {
                 int homeNum = Integer.parseInt(binding.homeNum.getText().toString());
                 int parkingNum = Integer.parseInt(binding.parkingNum.getText().toString());
                 ParkingModel parking = new ParkingModel(firebaseUser.getUid(), city, street, homeNum, parkingNum);
-                Task<DocumentReference> parkingRef = firebaseFirestore.collection("Parkings").add(parking);
+                firebaseFirestore.collection("Parkings").add(parking);
 
                 Toast.makeText(AddParking.this, "Parking added successfully", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(AddParking.this, Profile.class));
