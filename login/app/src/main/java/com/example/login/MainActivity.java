@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, Profile.class));
             }
         });
-
     }
 
     private void EventChangeListener() {
@@ -98,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
             .addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-
                     if (error != null){
                         if (progressDialog.isShowing()){
                             progressDialog.dismiss();
@@ -109,7 +107,10 @@ public class MainActivity extends AppCompatActivity {
 
                     for (DocumentChange dc : value.getDocumentChanges()){
                         if (dc.getType() == DocumentChange.Type.ADDED){
-                            parkingList.add(dc.getDocument().toObject(PostedParking.class));
+                            PostedParking postedParking = dc.getDocument().toObject(PostedParking.class);
+                            if (postedParking.status.equals("Available")){
+                                parkingList.add(postedParking);
+                            }
                         }
 
                         myAdapter.notifyDataSetChanged();

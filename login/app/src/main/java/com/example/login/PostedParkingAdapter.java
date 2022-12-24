@@ -82,7 +82,6 @@ public class PostedParkingAdapter extends RecyclerView.Adapter<PostedParkingAdap
         holder.price.setText(postedParking.price);
     }
 
-
     @Override
     public int getItemCount() {
         return list.size();
