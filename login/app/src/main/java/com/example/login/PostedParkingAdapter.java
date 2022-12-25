@@ -59,7 +59,7 @@ public class PostedParkingAdapter extends RecyclerView.Adapter<PostedParkingAdap
                         String address = city + ", " + street + " " + homeNum + ", " + parkingNum;
                         holder.parkingAddress.setText(address);
 
-                        String userId = docPark.getString("id");
+                        String userId = docPark.getString("ownerId");
                         DocumentReference userRef = firebaseFirestore.collection("User").document(userId);
                         userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override

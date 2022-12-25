@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -112,9 +111,7 @@ public class MainActivity extends AppCompatActivity {
                                     parkingList.add(activeParking);
                                 }
                             }
-
                             myAdapter.notifyDataSetChanged();
-
                         }
                         if (progressDialog.isShowing()) {
                             progressDialog.dismiss();

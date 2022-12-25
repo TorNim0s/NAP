@@ -60,7 +60,7 @@ public class RentParking extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        ownerId = document.getString("id");
+                        ownerId = document.getString("ownerId");
                     } else {
                         Toast.makeText(RentParking.this, "User data not found", Toast.LENGTH_SHORT).show();
                     }
