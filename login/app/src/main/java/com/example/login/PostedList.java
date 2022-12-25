@@ -65,7 +65,7 @@ public class PostedList extends AppCompatActivity {
     }
 
     private void EventChangeListener() {
-        firebaseFirestore.collection("PostedParking")
+        firebaseFirestore.collection("PostedParking").whereEqualTo("ownerId", firebaseUser.getUid())
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

@@ -96,7 +96,7 @@ public class PostParking extends AppCompatActivity {
 //                        }
 //                    }
 //                });
-                ActiveParking activeParking = new ActiveParking(availableHours, price, selectedParkingId, "Available");
+                ActiveParking activeParking = new ActiveParking(availableHours, price, selectedParkingId, firebaseUser.getUid(), "Available");
                 firebaseFirestore.collection("PostedParking").add(activeParking);
 
                 Toast.makeText(PostParking.this, "Parking posted successfully", Toast.LENGTH_SHORT).show();
@@ -143,11 +143,10 @@ public class PostParking extends AppCompatActivity {
     }
 
     private void EventChangeListener() {
-        firebaseFirestore.collection("Parkings").whereEqualTo("id", firebaseUser.getUid())
+        firebaseFirestore.collection("Parkings").whereEqualTo("ownerId", firebaseUser.getUid())
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-
                         if (error != null) {
                             Log.e("Firestore error", error.getMessage());
                             return;
