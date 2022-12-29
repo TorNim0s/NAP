@@ -1,6 +1,11 @@
 package com.example.login;
 
+import com.google.firebase.database.Exclude;
+
 public class ParkingModel {
+
+    @Exclude
+    private String parkingId;
 
     private String ownerId;
     private String city;
@@ -55,5 +60,14 @@ public class ParkingModel {
 
     public String getOwnerId() {
         return ownerId;
+    }
+
+    public String getParkingId() {
+        return parkingId;
+    }
+
+    public ParkingModel setParkingId(String parkingId) {
+        this.parkingId = parkingId;
+        return this;
     }
 }
