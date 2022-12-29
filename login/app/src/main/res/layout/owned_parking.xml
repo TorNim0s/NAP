@@ -137,7 +137,7 @@
         tools:ignore="TouchTargetSizeCheck" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/back"
+        android:id="@+id/remove"
         android:layout_width="80dp"
         android:layout_height="35dp"
         android:layout_centerHorizontal="true"
@@ -150,5 +150,10 @@
         android:textSize="10sp"
         tools:ignore="TouchTargetSizeCheck" />
 
+    <TextView
+        android:id="@+id/parkingId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 
 </androidx.cardview.widget.CardView>

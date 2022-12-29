@@ -1,13 +1,13 @@
 package com.example.login;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -72,7 +72,14 @@ public class RentParking extends AppCompatActivity {
 
         rentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { //need to change search for specific document
+            public void onClick(View view) {
+                if (firebaseUser == null){
+                    Intent intent = new Intent(RentParking.this, SignIn.class);
+                    startActivity(intent);
+                    return;
+                }
+
+                //need to change search for specific document
                 Query query = firebaseFirestore.collection("PostedParking").whereEqualTo("parkingId", parkingId);
                 query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
