@@ -1,9 +1,6 @@
 package com.example.login;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +8,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,8 +28,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
 
 public class PostParking extends AppCompatActivity {
 
@@ -43,6 +45,9 @@ public class PostParking extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     HashMap<String, String> map;
 
+    final Calendar FromCalender = Calendar.getInstance();
+    final Calendar ToCalender = Calendar.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +55,7 @@ public class PostParking extends AppCompatActivity {
         setContentView(R.layout.activity_post_parking);
 
         timeFrom = findViewById(R.id.timeFrom);
-        timeUntil = findViewById(R.id.timeUntil);
+        timeUntil = findViewById(R.id.timeTo);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -73,7 +78,6 @@ public class PostParking extends AppCompatActivity {
         postBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String availableHours = timeFrom.getText().toString() + " - " + timeUntil.getText().toString();
                 String price = cost.getText().toString() + " Shekels";
                 String selectedItem = (String) dropdown.getSelectedItem();
                 String selectedParkingId = map.get(selectedItem);
@@ -96,7 +100,7 @@ public class PostParking extends AppCompatActivity {
 //                        }
 //                    }
 //                });
-                ActiveParking activeParking = new ActiveParking(availableHours, price, selectedParkingId, firebaseUser.getUid(), "Available");
+                ActiveParking activeParking = new ActiveParking(FromCalender.getTimeInMillis(), ToCalender.getTimeInMillis(), price, selectedParkingId, firebaseUser.getUid(), "Available");
                 firebaseFirestore.collection("PostedParking").add(activeParking);
 
                 Toast.makeText(PostParking.this, "Parking posted successfully", Toast.LENGTH_SHORT).show();
@@ -114,32 +118,59 @@ public class PostParking extends AppCompatActivity {
         });
     }
 
-    public void popTimePicker(View view) {
-        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int selectHour, int selectMinute) {
-                if (view.getId() == R.id.timeFrom) {
-                    hourFrom = selectHour;
-                    minuteFrom = selectMinute;
-                    timeFrom.setText(String.format(Locale.getDefault(), "%02d:%02d", hourFrom, minuteFrom));
-                }
-                if (view.getId() == R.id.timeUntil) {
-                    hourUntil = selectHour;
-                    minuteUntil = selectMinute;
-                    timeUntil.setText(String.format(Locale.getDefault(), "%02d:%02d", hourUntil, minuteUntil));
-                }
-            }
-        };
+    public void popTimeDatePicker(View view) {
 
-        int style = AlertDialog.THEME_HOLO_DARK;
-        TimePickerDialog timePickerDialog = null;
         if (view.getId() == R.id.timeFrom) {
-            timePickerDialog = new TimePickerDialog(this, style, onTimeSetListener, hourFrom, minuteFrom, true);
+            popTimeDataPickerPerCalender(FromCalender, timeFrom);
+        } else {
+            popTimeDataPickerPerCalender(ToCalender, timeUntil);
         }
-        if (view.getId() == R.id.timeUntil) {
-            timePickerDialog = new TimePickerDialog(this, style, onTimeSetListener, hourUntil, minuteUntil, true);
-        }
-        timePickerDialog.show();
+
+
+//        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+//            @Override
+//            public void onTimeSet(TimePicker timePicker, int selectHour, int selectMinute) {
+//                if (view.getId() == R.id.timeFrom) {
+//                    hourFrom = selectHour;
+//                    minuteFrom = selectMinute;
+//                    timeFrom.setText(String.format(Locale.getDefault(), "%02d:%02d", hourFrom, minuteFrom));
+//                }
+//                if (view.getId() == R.id.timeUntil) {
+//                    hourUntil = selectHour;
+//                    minuteUntil = selectMinute;
+//                    timeUntil.setText(String.format(Locale.getDefault(), "%02d:%02d", hourUntil, minuteUntil));
+//                }
+//            }
+//        };
+//
+//        int style = AlertDialog.THEME_HOLO_DARK;
+//        TimePickerDialog timePickerDialog = null;
+//        if (view.getId() == R.id.timeFrom) {
+//            timePickerDialog = new TimePickerDialog(this, style, onTimeSetListener, hourFrom, minuteFrom, true);
+//        }
+//        if (view.getId() == R.id.timeUntil) {
+//            timePickerDialog = new TimePickerDialog(this, style, onTimeSetListener, hourUntil, minuteUntil, true);
+//        }
+//        timePickerDialog.show();
+    }
+
+    private void popTimeDataPickerPerCalender(Calendar c, TextView t){
+        new DatePickerDialog(PostParking.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                c.set(Calendar.YEAR, year);
+                c.set(Calendar.MONTH, month);
+                c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                new TimePickerDialog(PostParking.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        c.set(Calendar.MINUTE, minute);
+                        t.setText(year + "-" + (month + 1) + "-" + dayOfMonth + " " + hourOfDay + ":" + minute);
+                    }
+                }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true).show();
+            }
+        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     private void EventChangeListener() {

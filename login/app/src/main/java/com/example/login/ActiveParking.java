@@ -1,25 +1,26 @@
 package com.example.login;
 
+import java.sql.Time;
+import java.util.Date;
+
 public class ActiveParking {
 
-    String availableHours, price;
+    Date startTime, endTime;
+    String price;
     String parkingId, status;
     String renterId, ownerId;
 
     public ActiveParking() {
     }
 
-    public ActiveParking(String availableHours, String price, String parkingId, String ownerId, String status) {
-        this.availableHours = availableHours;
+    public ActiveParking(long startTime, long endTime, String price, String parkingId, String ownerId, String status) {
+        this.startTime = new Time(startTime);
+        this.endTime = new Time(endTime);
         this.price = price;
         this.parkingId = parkingId;
         this.status = status;
         this.ownerId = ownerId;
         this.renterId = "";
-    }
-
-    public String getAvailableHours() {
-        return availableHours;
     }
 
     public String getPrice() {
@@ -48,5 +49,21 @@ public class ActiveParking {
 
     public void setRenterId(String renterId) {
         this.renterId = renterId;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public String getStartDataAsString(){
+        return this.startTime.toString().substring(0, this.startTime.toString().indexOf(" GMT"));
+    }
+
+    public String getEndDataAsString(){
+        return this.endTime.toString().substring(0, this.endTime.toString().indexOf(" GMT"));
     }
 }

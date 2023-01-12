@@ -71,7 +71,7 @@
         android:background="#30ffffff"
         android:drawablePadding="20dp"
         android:padding="20dp"
-        android:text="Available until: "
+        android:text="Available: "
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
 

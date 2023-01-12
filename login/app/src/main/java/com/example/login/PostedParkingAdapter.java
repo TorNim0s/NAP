@@ -77,7 +77,8 @@ public class PostedParkingAdapter extends RecyclerView.Adapter<PostedParkingAdap
             }
         });
 
-        holder.availableHours.setText(activeParking.availableHours);
+        holder.availableHoursFrom.setText(activeParking.getStartDataAsString());
+        holder.availableHoursTo.setText(activeParking.getEndDataAsString());
         holder.price.setText(activeParking.price);
     }
 
@@ -88,13 +89,14 @@ public class PostedParkingAdapter extends RecyclerView.Adapter<PostedParkingAdap
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView owner, parkingAddress, availableHours, price, parkingId;
+        TextView owner, parkingAddress, availableHoursFrom, availableHoursTo, price, parkingId;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             owner = itemView.findViewById(R.id.owner);
             parkingAddress = itemView.findViewById(R.id.address);
-            availableHours = itemView.findViewById(R.id.availableHours);
+            availableHoursFrom = itemView.findViewById(R.id.availableHoursFrom);
+            availableHoursTo = itemView.findViewById(R.id.availableHoursTo);
             price = itemView.findViewById(R.id.price);
             parkingId = itemView.findViewById(R.id.parkingId);
 
@@ -105,7 +107,8 @@ public class PostedParkingAdapter extends RecyclerView.Adapter<PostedParkingAdap
                     Intent intent = new Intent(view.getContext(), RentParking.class);
                     intent.putExtra("Owner", owner.getText());
                     intent.putExtra("Address", parkingAddress.getText());
-                    intent.putExtra("Hours", availableHours.getText());
+                    intent.putExtra("AvailableFrom", availableHoursFrom.getText());
+                    intent.putExtra("AvailableTo", availableHoursTo.getText());
                     intent.putExtra("Price", price.getText());
                     intent.putExtra("parkingId", parkingId.getText());
                     view.getContext().startActivity(intent);

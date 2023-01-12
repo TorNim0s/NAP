@@ -60,7 +60,8 @@ public class ActiveParkingAdapter extends RecyclerView.Adapter<ActiveParkingAdap
             }
         });
         holder.status.setText(activeParking.status);
-        holder.availableHours.setText(activeParking.availableHours);
+        holder.availableHoursFrom.setText(activeParking.getStartDataAsString());
+        holder.availableHoursTo.setText(activeParking.getEndDataAsString());
         holder.price.setText(activeParking.price);
     }
 
@@ -71,13 +72,14 @@ public class ActiveParkingAdapter extends RecyclerView.Adapter<ActiveParkingAdap
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView status, parkingAddress, availableHours, price;
+        TextView status, parkingAddress, availableHoursFrom, availableHoursTo, price;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             status = itemView.findViewById(R.id.status);
             parkingAddress = itemView.findViewById(R.id.address);
-            availableHours = itemView.findViewById(R.id.availableHours);
+            availableHoursFrom = itemView.findViewById(R.id.availableHoursFrom);
+            availableHoursTo = itemView.findViewById(R.id.availableHoursTo);
             price = itemView.findViewById(R.id.price);
 
         }

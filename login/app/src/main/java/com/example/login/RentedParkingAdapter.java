@@ -74,7 +74,8 @@ public class RentedParkingAdapter extends RecyclerView.Adapter<RentedParkingAdap
             }
         });
 
-        holder.availableHours.setText(activeParking.availableHours);
+        holder.availableHoursFrom.setText(activeParking.getStartTime().toString());
+        holder.availableHoursTo.setText(activeParking.getEndTime().toString());
         holder.price.setText(activeParking.price);
     }
 
@@ -85,13 +86,14 @@ public class RentedParkingAdapter extends RecyclerView.Adapter<RentedParkingAdap
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView owner, parkingAddress, availableHours, price;
+        TextView owner, parkingAddress, availableHoursFrom, availableHoursTo, price;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             owner = itemView.findViewById(R.id.owner);
             parkingAddress = itemView.findViewById(R.id.address);
-            availableHours = itemView.findViewById(R.id.availableHours);
+            availableHoursFrom = itemView.findViewById(R.id.availableHoursFrom);
+            availableHoursTo = itemView.findViewById(R.id.availableHoursTo);
             price = itemView.findViewById(R.id.price);
 
         }
