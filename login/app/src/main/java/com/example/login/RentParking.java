@@ -2,6 +2,8 @@ package com.example.login;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -9,6 +11,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
@@ -22,7 +30,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -41,6 +51,8 @@ public class RentParking extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        MapView mapView = (MapView) findViewById(R.id.mapView);
+
         TextView address = (TextView) findViewById(R.id.address);
         TextView owner = (TextView) findViewById(R.id.owner);
         TextView cost = (TextView) findViewById(R.id.cost);
@@ -53,6 +65,33 @@ public class RentParking extends AppCompatActivity {
         cost.setText("Hourly price: " + bundle.getString("Price"));
         available.setText("Available until: " + bundle.getString("Hours"));
         String parkingId = bundle.getString("parkingId");
+        Geocoder geocoder = new Geocoder(this);
+        mapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                List<Address> addresses;
+                try {
+                    addresses = geocoder.getFromLocationName(address.getText().toString(), 1);
+                    if(addresses.size() > 0) {
+                        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+//                        googleMap.setMyLocationEnabled(true);
+                        googleMap.setTrafficEnabled(true);
+                        googleMap.getUiSettings().setZoomControlsEnabled(true);
+
+                        double latitude = addresses.get(0).getLatitude();
+                        double longitude = addresses.get(0).getLongitude();
+                        LatLng latLng = new LatLng(latitude, longitude);
+                        googleMap.addMarker(new MarkerOptions().position(latLng)
+                                .title(address.getText().toString())
+                                .snippet("Cost: " + cost.getText().toString()));
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
         DocumentReference docRef = firebaseFirestore.collection("Parkings").document(parkingId);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

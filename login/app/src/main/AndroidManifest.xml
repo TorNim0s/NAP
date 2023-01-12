@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Login"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCVoHjw1gIHgcKkcXodSsA4VDk-7-uAPbw"/>
         <activity
             android:name=".PostedList"
             android:exported="false">
