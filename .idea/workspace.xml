@@ -10,7 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c11a46b-ee2d-4972-b9bc-370618f078fa" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/NAP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/NAP.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/login/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/app/src/main/java/com/example/login/RentParking.java" beforeDir="false" afterPath="$PROJECT_DIR$/login/app/src/main/java/com/example/login/RentParking.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
