@@ -63,7 +63,7 @@ public class RentParking extends AppCompatActivity {
         address.setText(bundle.getString("Address"));
         owner.setText("Owned by: " + bundle.getString("Owner"));
         cost.setText("Hourly price: " + bundle.getString("Price"));
-        available.setText("Available until: " + bundle.getString("Hours"));
+        available.setText("Available: From " + bundle.getString("AvailableFrom") + " To " + bundle.getString("AvailableTo"));
         String parkingId = bundle.getString("parkingId");
         Geocoder geocoder = new Geocoder(this);
         mapView.getMapAsync(new OnMapReadyCallback() {

@@ -59,8 +59,8 @@
         android:layout_marginEnd="10dp"
         android:background="#30ffffff"
         android:drawablePadding="20dp"
-        android:onClick="popTimePicker"
-        android:text="00:00"
+        android:onClick="popTimeDatePicker"
+        android:text="Select Date and Time"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
 
@@ -83,7 +83,7 @@
         app:drawableStartCompat="@drawable/ic_baseline_access_time_24" />
 
     <Button
-        android:id="@+id/timeUntil"
+        android:id="@+id/timeTo"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@id/timeFrom"
@@ -92,8 +92,8 @@
         android:layout_marginEnd="10dp"
         android:background="#30ffffff"
         android:drawablePadding="20dp"
-        android:onClick="popTimePicker"
-        android:text="00:00"
+        android:onClick="popTimeDatePicker"
+        android:text="Select Date and Time"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
 
