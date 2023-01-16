@@ -19,6 +19,13 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/**
+ * The class Profile is an activity in an Android app that allows the user to view and manage their profile information.
+ * It includes options to view the user's parking, rented, and posted lists, add parking,
+ * edit their profile, change their password, and log out of the app.
+ * It also has a progress dialog that is displayed while the activity fetches data from the Firebase Firestore.
+ * The activity also includes click listeners for buttons and text views that navigate to other activities when clicked.
+ */
 public class Profile extends AppCompatActivity {
 
     ProgressDialog progressDialog;
@@ -29,11 +36,13 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
+        //initializing a progress dialog to show while fetching data
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Fetching Data...");
         progressDialog.show();
 
+        //initializing logoutText and setting an onClickListener to perform logout action
         TextView logoutText = (TextView) findViewById(R.id.logoutBtn);
         logoutText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +52,7 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        //initializing parkingList textView and setting an onClickListener to open ParkingList class
         TextView parkingList = (TextView) findViewById(R.id.parkingList);
         parkingList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +61,7 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        //initializing rentedList textView and setting an onClickListener to open RentedList class
         TextView rentedList = (TextView) findViewById(R.id.rentedList);
         rentedList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +70,7 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        // Find the posted list button and set a click listener
         TextView postedList = (TextView) findViewById(R.id.postedList);
         postedList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +80,7 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-
+        // Find the add parking button and set a click listener
         TextView addParking = (TextView) findViewById(R.id.addParking);
         addParking.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,9 +158,5 @@ public class Profile extends AppCompatActivity {
                 }
             }
         });
-
-
     }
-
-
 }
