@@ -1,3 +1,13 @@
+/*  class ActiveParking.java
+    it represents a parking that is currently active.
+    It contains several fields such as startTime, endTime, price,
+    parkingId, status, renterId, and ownerId.
+    These fields store information about the parking, including the start and end times,
+    the price, the parking's ID, the status, the renter's ID, and the owner's ID.
+    The class also contains several getter and setter methods to access these fields.
+    Additionally, it has two methods, getStartDataAsString and getEndDataAsString,
+    which return the start and end time in a formatted string respectively.  */
+
 package com.example.login;
 
 import java.sql.Time;
@@ -13,6 +23,8 @@ public class ActiveParking {
     public ActiveParking() {
     }
 
+    // constructor that initializes the startTime, endTime, price, parkingId, ownerId,
+    // and status of the parking
     public ActiveParking(long startTime, long endTime, String price, String parkingId, String ownerId, String status) {
         this.startTime = new Time(startTime);
         this.endTime = new Time(endTime);
@@ -59,11 +71,15 @@ public class ActiveParking {
         return endTime;
     }
 
+    // returns the start time in a formatted string
     public String getStartDataAsString(){
-        return this.startTime.toString().substring(0, this.startTime.toString().indexOf(" GMT"));
+        return this.startTime.toString();
+//        return this.startTime.toString().substring(0, this.startTime.toString().indexOf(" GMT"));
     }
 
+    // returns the end time in a formatted string
     public String getEndDataAsString(){
-        return this.endTime.toString().substring(0, this.endTime.toString().indexOf(" GMT"));
+        return this.endTime.toString();
+//        return this.endTime.toString().substring(0, this.endTime.toString().indexOf(" GMT"));
     }
 }
