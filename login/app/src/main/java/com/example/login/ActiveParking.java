@@ -1,4 +1,4 @@
-/*  class ActiveParking.java
+/** class ActiveParking.java
     it represents a parking that is currently active.
     It contains several fields such as startTime, endTime, price,
     parkingId, status, renterId, and ownerId.
