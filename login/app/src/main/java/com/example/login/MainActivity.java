@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<ActiveParking> parkingList;
     FirebaseFirestore firebaseFirestore;
     ProgressDialog progressDialog;
+    EditText search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +81,10 @@ public class MainActivity extends AppCompatActivity {
         myAdapter = new PostedParkingAdapter(this, parkingList);
         recyclerView.setAdapter(myAdapter);
 
-        EventChangeListener();
+        search = (EditText) findViewById(R.id.searchBar);
+
+
+            EventChangeListener();
         // Set up onClickListeners for the buttons
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +131,13 @@ public class MainActivity extends AppCompatActivity {
                             if (dc.getType() == DocumentChange.Type.ADDED) {
                                 ActiveParking activeParking = dc.getDocument().toObject(ActiveParking.class);
                                 if (activeParking.status.equals("Available")) {
-                                    parkingList.add(activeParking);
+                                    if (search.getText().toString().equals("")) {
+                                        parkingList.add(activeParking);
+                                    }
+                                    else {
+                                        String parkingID = activeParking.parkingId.toString();
+                                        
+                                    }
                                 }
                             }
                             myAdapter.notifyDataSetChanged();
