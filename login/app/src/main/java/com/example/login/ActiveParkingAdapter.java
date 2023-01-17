@@ -14,10 +14,12 @@
 package com.example.login;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -73,33 +75,12 @@ public class ActiveParkingAdapter extends RecyclerView.Adapter<ActiveParkingAdap
         firebaseFirestore = FirebaseFirestore.getInstance();
         // Get the parkingId from the ActiveParking object
         String parkingId = activeParking.parkingId;
-        // Get a reference to the parking space with the given parkingId
-        DocumentReference parkingRef = firebaseFirestore.collection("Parkings").document(parkingId);
-        // Get the document snapshot for the parking space
-        parkingRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    // The document exists
-                    DocumentSnapshot docPark = task.getResult();
-                    if (docPark.exists()) {
-                        // Get the city, street, home number, and parking number of the parking space
-                        String city = docPark.getString("city");
-                        String street = docPark.getString("street");
-                        String homeNum = String.valueOf(docPark.get("homeNum"));
-                        String parkingNum = String.valueOf(docPark.get("parkingNum"));
-                        // Concatenate the city, street, home number, and parking number to create
-                        String address = city + ", " + street + " " + homeNum + ", " + parkingNum;
-                        holder.parkingAddress.setText(address);
-                    }
-                }
-            }
-        });
         //Setting the text of the TextViews in the layout to
         //the corresponding values of the ActiveParking object
+        holder.parkingAddress.setText(activeParking.address);
         holder.status.setText(activeParking.status);
-        holder.availableHoursFrom.setText(activeParking.getStartDataAsString());
-        holder.availableHoursTo.setText(activeParking.getEndDataAsString());
+        holder.availableHoursFrom.setText(activeParking.startTime.toString().substring(0, activeParking.startTime.toString().indexOf(" GMT")));
+        holder.availableHoursTo.setText(activeParking.endTime.toString().substring(0, activeParking.endTime.toString().indexOf(" GMT")));
         holder.price.setText(activeParking.price);
     }
 
@@ -126,6 +107,13 @@ public class ActiveParkingAdapter extends RecyclerView.Adapter<ActiveParkingAdap
             availableHoursTo = itemView.findViewById(R.id.availableHoursTo);
             price = itemView.findViewById(R.id.price);
 
+            itemView.findViewById(R.id.remove).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(view.getContext(), "In progress", Toast.LENGTH_SHORT).show();
+
+                }
+            });
         }
     }
 }
