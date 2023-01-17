@@ -140,6 +140,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         map.moveCamera(CameraUpdateFactory.newLatLng(telAviv));
         map.animateCamera(CameraUpdateFactory.zoomTo(12));
 
+        EventChangeListener();
+    }
+
+    @Override
+    public boolean onMarkerClick(@NonNull Marker marker) {
+        String postedId = (String) marker.getTag();
+        Intent intent = new Intent(this, RentParking.class);
+        intent.putExtra("ids", postedId);
+        startActivity(intent);
+        return true;
+    }
+
+    private void EventChangeListener() {
+//        // Listen for changes to the "PostedParking" collection in Firebase Firestore
         Geocoder geocoder = new Geocoder(this);
 
         firebaseFirestore.collection("PostedParking")
@@ -161,7 +175,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             if (dc.getType() == DocumentChange.Type.ADDED) {
                                 ActiveParking activeParking = dc.getDocument().toObject(ActiveParking.class);
 
-                                Log.d("------", activeParking.status);
                                 if (activeParking.status.equals("Available")) {
                                     try {
                                         String[] temp = activeParking.address.split(",");
@@ -177,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                             Objects.requireNonNull(map.addMarker(new MarkerOptions().position(latLng)
                                                             .title(activeParking.address)
                                                             .snippet("Cost: " + activeParking.price)))
-                                                    .setTag(dc.getDocument().getId());
+                                                    .setTag(dc.getDocument().getId() + "," + activeParking.parkingId + "," + activeParking.ownerId);
                                         }
                                     } catch (IOException e) {
                                         e.printStackTrace();
@@ -192,48 +205,5 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 });
     }
-
-    @Override
-    public boolean onMarkerClick(@NonNull Marker marker) {
-        String postedId = (String) marker.getTag();
-        Intent intent = new Intent(this, RentParking.class);
-        intent.putExtra("parkingId", postedId);
-        startActivity(intent);
-        return true;
-    }
-
-//    private void EventChangeListener() {
-//        // Listen for changes to the "PostedParking" collection in Firebase Firestore
-//        firebaseFirestore.collection("PostedParking")
-//                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                        // If there is an error, log it and dismiss the progress dialog
-//                        if (error != null) {
-//                            if (progressDialog.isShowing()) {
-//                                progressDialog.dismiss();
-//                            }
-//                            Log.e("Firestore error", error.getMessage());
-//                            return;
-//                        }
-//                        // For each change to the collection, check if it is an ADDED change
-//                        // and if the parking is available
-//                        // If so, add it to the parkingList and update the adapter
-//                        for (DocumentChange dc : value.getDocumentChanges()) {
-//                            if (dc.getType() == DocumentChange.Type.ADDED) {
-//                                ActiveParking activeParking = dc.getDocument().toObject(ActiveParking.class);
-//                                if (activeParking.status.equals("Available")) {
-//                                    parkingList.add(activeParking);
-//                                }
-//                            }
-//                            myAdapter.notifyDataSetChanged();
-//                        }
-//                        // If progress dialog is showing, dismiss it
-//                        if (progressDialog.isShowing()) {
-//                            progressDialog.dismiss();
-//                        }
-//                    }
-//                });
-//    }
 
 }

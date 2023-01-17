@@ -32,6 +32,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +42,7 @@ public class RentParking extends AppCompatActivity {
 
     FirebaseFirestore firebaseFirestore;
     FirebaseUser firebaseUser;
-    String ownerId;
+    String ownerId = "";
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -52,52 +53,43 @@ public class RentParking extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        //MapView mapView = (MapView) findViewById(R.id.mapView);
-
         TextView address = (TextView) findViewById(R.id.address);
         TextView owner = (TextView) findViewById(R.id.owner);
         TextView cost = (TextView) findViewById(R.id.cost);
         TextView available = (TextView) findViewById(R.id.available);
-        TextView parkingId = (TextView) findViewById(R.id.parkingId);
-        //TextView ownerId = (TextView) findViewById(R.id.ownerId);
         MaterialButton rentBtn = (MaterialButton) findViewById(R.id.rent);
 
         Bundle bundle = getIntent().getExtras();
-        String postedId = bundle.getString("parkingId");
-//        String postedId = "hlXNCYXVNT9fJIZA6StC";
-        Log.d("------", "postedID " + postedId);
+        String[] ids = bundle.getString("ids").split(",");
+        String postedId = ids[0];
+        String parkingId = ids[1];
+        String ownerId = ids[2];
+
         DocumentReference docRef = firebaseFirestore.collection("PostedParking").document(postedId);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d("------", "00000000");
-                        parkingId.setText(document.getString("parkingId"));
-                        Log.d("------", "id " + parkingId.getText().toString());
-                        address.setText(document.getString("address"));
-                        owner.setText("Owned by: ");
-                        cost.setText("Hourly price: " + document.getString("price"));
-                        available.setText("Available: From " + document.get("startTime") + " To " + document.get("endTime"));
-                    }
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    address.setText(document.getString("address"));
+                    cost.setText("Hourly price: " + document.getString("price"));
+                    String from = document.getTimestamp("startTime").toDate().toString().substring(0, document.getTimestamp("startTime").toDate().toString().indexOf(" GMT"));
+                    String to = document.getTimestamp("endTime").toDate().toString().substring(0, document.getTimestamp("endTime").toDate().toString().indexOf(" GMT"));
+                    available.setText("Available: \nFrom " + from + "\nTo " + to);
+                } else {
+                    Toast.makeText(RentParking.this, "PostedParking data not found", Toast.LENGTH_SHORT).show();
                 }
+            } else {
+                Toast.makeText(RentParking.this, "Error retrieving PostedParking data", Toast.LENGTH_SHORT).show();
             }
         });
-
-        Log.d("------", "111111111");
-        String parkID = parkingId.getText().toString();
-        Log.d("------", "parkingID " + parkID);
-        DocumentReference docRef1 = firebaseFirestore.collection("Parkings").document(parkID);
-        Log.d("------", "222222222222");
-        docRef1.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        DocumentReference userRef = firebaseFirestore.collection("User").document(ownerId);
+        userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            public void onComplete(Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        ownerId = document.getString("ownerId");
-                        Log.d("------", ownerId);
+                        owner.setText("Owned by: " + document.getString("name"));
                     } else {
                         Toast.makeText(RentParking.this, "User data not found", Toast.LENGTH_SHORT).show();
                     }
@@ -106,7 +98,6 @@ public class RentParking extends AppCompatActivity {
                 }
             }
         });
-        Log.d("------", "33333333333333333333");
 
         rentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
