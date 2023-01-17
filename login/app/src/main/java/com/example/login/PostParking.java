@@ -133,7 +133,7 @@ public class PostParking extends AppCompatActivity {
 
 
                 // Create a new ActiveParking object with the selected parking information
-                ActiveParking activeParking = new ActiveParking(FromCalender.getTimeInMillis(), ToCalender.getTimeInMillis(), price, selectedParkingId, firebaseUser.getUid(), "Available");
+                ActiveParking activeParking = new ActiveParking(FromCalender.getTimeInMillis(), ToCalender.getTimeInMillis(), price, selectedParkingId, firebaseUser.getUid(), "Available", selectedItem);
                 // Add the active parking object to the "PostedParking" collection in Firebase Firestore
                 firebaseFirestore.collection("PostedParking").add(activeParking);
                 // Show a toast message to confirm that the parking was posted successfully

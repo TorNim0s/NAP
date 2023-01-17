@@ -10,22 +10,25 @@
 
 package com.example.login;
 
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.sql.Time;
 import java.util.Date;
-
 public class ActiveParking {
 
     Date startTime, endTime;
     String price;
     String parkingId, status;
     String renterId, ownerId;
+    String address;
 
     public ActiveParking() {
     }
 
     // constructor that initializes the startTime, endTime, price, parkingId, ownerId,
     // and status of the parking
-    public ActiveParking(long startTime, long endTime, String price, String parkingId, String ownerId, String status) {
+    public ActiveParking(long startTime, long endTime, String price, String parkingId, String ownerId, String status, String address) {
         this.startTime = new Time(startTime);
         this.endTime = new Time(endTime);
         this.price = price;
@@ -33,6 +36,7 @@ public class ActiveParking {
         this.status = status;
         this.ownerId = ownerId;
         this.renterId = "";
+        this.address = address;
     }
 
     public String getPrice() {
@@ -72,14 +76,20 @@ public class ActiveParking {
     }
 
     // returns the start time in a formatted string
+    @Exclude
     public String getStartDataAsString(){
         return this.startTime.toString();
 //        return this.startTime.toString().substring(0, this.startTime.toString().indexOf(" GMT"));
     }
 
     // returns the end time in a formatted string
+    @Exclude
     public String getEndDataAsString(){
         return this.endTime.toString();
 //        return this.endTime.toString().substring(0, this.endTime.toString().indexOf(" GMT"));
+    }
+
+    public String getAddress() {
+        return address;
     }
 }
