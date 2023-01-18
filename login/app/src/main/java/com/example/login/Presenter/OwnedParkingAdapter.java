@@ -1,4 +1,4 @@
-package com.example.login;
+package com.example.login.Presenter;
 
 
 import android.content.Context;
@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.login.Model.ParkingModel;
+import com.example.login.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;

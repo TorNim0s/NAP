@@ -1,4 +1,4 @@
-package com.example.login;
+package com.example.login.Presenter;
 
 import android.content.Intent;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.login.Model.ActiveParking;
+import com.example.login.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;

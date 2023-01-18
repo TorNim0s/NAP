@@ -1,4 +1,4 @@
-package com.example.login;
+package com.example.login.Presenter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.login.Model.UserModel;
 import com.example.login.databinding.ActivitySignUpBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

@@ -1,4 +1,4 @@
-package com.example.login;
+package com.example.login.Model;
 
 import com.google.firebase.database.Exclude;
 

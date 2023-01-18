@@ -11,10 +11,9 @@
     The class also contains an inner class MyViewHolder which is used to hold the views in the
     layout and to make them accessible in the onBindViewHolder method. */
 
-package com.example.login;
+package com.example.login.Presenter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +23,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.example.login.Model.ActiveParking;
+import com.example.login.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;

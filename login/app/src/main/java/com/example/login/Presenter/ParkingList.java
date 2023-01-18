@@ -1,4 +1,4 @@
-package com.example.login;
+package com.example.login.Presenter;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.login.Model.ParkingModel;
+import com.example.login.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,68 +25,70 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 /**
- * The class "PostedList" is an Android activity that displays a list of parking spots that a user has posted.
- * It uses a RecyclerView to display the parking spots in a list format.
- * The class uses Firebase Firestore to retrieve the data of the parking spots that are posted by the current user.
- * It uses a ProgressDialog to display a loading message while the data is being fetched.
- * The class also has a MaterialButton that when clicked, takes the user back to the previous screen.
- * The class uses the "ActiveParking" model to store the data of each parking spot
- * and an "ActiveParkingAdapter" class to populate the RecyclerView with the parking spot data.
+ * The class ParkingList is an activity that displays a list of parking spots owned by the currently logged-in user.
+ * It retrieves the data from Firestore and displays it in a RecyclerView.
+ * The activity also has a back button that allows the user to navigate back to the previous screen.
+ * The data is retrieved from the "Parkings" collection in Firestore and filtered by the owner's id.
+ * It also has a progress dialog that appears while the data is being fetched from Firestore.
+ * The parking spots are represented by the ParkingModel class and are displayed using the OwnedParkingAdapter class.
  */
-public class PostedList extends AppCompatActivity {
+public class ParkingList extends AppCompatActivity {
 
+    // Declaring variables for recycler view, adapter, FirebaseFirestore, FirebaseUser and ProgressDialog
     RecyclerView recyclerView;
-    ArrayList<ActiveParking> parkingModelArrayList;
-    ActiveParkingAdapter myAdapter;
+    ArrayList<ParkingModel> parkingModelArrayList;
+    OwnedParkingAdapter myAdapter;
     FirebaseFirestore firebaseFirestore;
     FirebaseUser firebaseUser;
     ProgressDialog progressDialog;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_posted_list);
+        setContentView(R.layout.activity_parking_list);
 
-        // Initialize progress dialog and set message and cancelable
+        // Initializing and setting properties for ProgressDialog
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Fetching Data...");
         progressDialog.show();
 
-        // Initialize recycler view and set its properties
+        // Initializing and setting properties for recycler view
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Initialize FirebaseFirestore and FirebaseUser instances
+        // Initializing FirebaseFirestore and FirebaseUser
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        parkingModelArrayList = new ArrayList<ActiveParking>();
-        myAdapter = new ActiveParkingAdapter(PostedList.this, parkingModelArrayList);
+        parkingModelArrayList = new ArrayList<ParkingModel>();
+        myAdapter = new OwnedParkingAdapter(ParkingList.this, parkingModelArrayList);
 
+        // Setting adapter for recycler view
         recyclerView.setAdapter(myAdapter);
 
-        // Call the EventChangeListener method to listen for changes in the database
+        // calling method to listen for changes in the Firestore collection
         EventChangeListener();
 
-        // Initialize the back button and set an onClickListener to go back to the previous screen
+        // code to go back to the previous screen goes here
         MaterialButton backBtn = (MaterialButton) findViewById(R.id.back);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PostedList.this, Profile.class));
+                // code to go back to the previous screen goes here
+                startActivity(new Intent(ParkingList.this, Profile.class));
             }
         });
     }
 
     private void EventChangeListener() {
-        // Query the "PostedParking" collection where the "ownerId" field is equal to the current user's ID
-        firebaseFirestore.collection("PostedParking").whereEqualTo("ownerId", firebaseUser.getUid())
+        // setting up a listener to listen for changes in the "Parkings" collection where the ownerId is equal to the current user's ID
+        firebaseFirestore.collection("Parkings").whereEqualTo("ownerId", firebaseUser.getUid())
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                        // Check for errors and dismiss progress dialog if there is an error
                         if (error != null) {
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
@@ -95,15 +99,13 @@ public class PostedList extends AppCompatActivity {
                         if (progressDialog.isShowing()) {
                             progressDialog.dismiss();
                         }
-                        // Iterate through the document changes
+                        // loop through the changes in the collection
                         for (DocumentChange dc : value.getDocumentChanges()) {
-                            // Check if the change is an added document
-                            if (dc.getType() == DocumentChange.Type.ADDED) {
-                                // Convert the document to an ActiveParking object and add it to the array list
-                                ActiveParking activeParking = dc.getDocument().toObject(ActiveParking.class);
-                                parkingModelArrayList.add(activeParking);
+                            if (dc.getType() == DocumentChange.Type.ADDED || dc.getType() == DocumentChange.Type.MODIFIED) {
+                                // add the new or modified parking to the arraylist and set the parkingId
+                                parkingModelArrayList.add(dc.getDocument().toObject(ParkingModel.class).setParkingId(dc.getDocument().getId()));
                             }
-
+                            // notify the adapter of the changes
                             myAdapter.notifyDataSetChanged();
 
                         }
