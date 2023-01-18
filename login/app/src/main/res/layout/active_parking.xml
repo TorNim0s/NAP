@@ -157,5 +157,12 @@
         android:text="Remove listing"
         android:textSize="9sp" />
 
+    <TextView
+        android:id="@+id/postedId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:visibility="gone"/>
+
 
 </androidx.cardview.widget.CardView>

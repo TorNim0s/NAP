@@ -3,6 +3,7 @@ package com.example.login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -93,17 +99,38 @@ public class OwnedParkingAdapter extends RecyclerView.Adapter<OwnedParkingAdapte
                 }
             });
 
+
             itemView.findViewById(R.id.remove).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // deletes the document in the "Parkings" collection in Firebase Firestore with the id stored in the parkingId TextView
-                    firebaseFirestore.collection("Parkings").document((String)parkingId.getText()).delete();
-                    // shows a toast message to confirm that the parking was deleted
-                    Toast.makeText(view.getContext(), "Parking deleted successfully", Toast.LENGTH_SHORT).show();
-                    // creates an Intent to open the ParkingList activity
-                    Intent intent = new Intent(view.getContext(), ParkingList.class);
-                    // starts the activity
-                    view.getContext().startActivity(intent);
+                    Query query = firebaseFirestore.collection("PostedParking").whereEqualTo("parkingId", parkingId.getText().toString());
+                    query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                QuerySnapshot querySnapshot = task.getResult();
+                                if (querySnapshot.size() > 0) {
+                                    for (QueryDocumentSnapshot document : querySnapshot) {
+                                        Log.d("TAG", document.getId() + " => " + document.getData());
+                                    }
+                                    Toast.makeText(view.getContext(), "Unable to delete, there are currently listings using this parking", Toast.LENGTH_SHORT).show();
+
+                                } else {
+                                    // deletes the document in the "Parkings" collection in Firebase Firestore with the id stored in the parkingId TextView
+                                    firebaseFirestore.collection("Parkings").document((String) parkingId.getText()).delete();
+                                    // shows a toast message to confirm that the parking was deleted
+                                    Toast.makeText(view.getContext(), "Parking deleted successfully", Toast.LENGTH_SHORT).show();
+                                    // creates an Intent to open the ParkingList activity
+                                    Intent intent = new Intent(view.getContext(), ParkingList.class);
+                                    // starts the activity
+                                    view.getContext().startActivity(intent);
+                                }
+                            } else {
+                                Log.d("TAG", "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+
                 }
             });
         }

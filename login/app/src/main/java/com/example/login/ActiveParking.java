@@ -75,20 +75,6 @@ public class ActiveParking {
         return endTime;
     }
 
-    // returns the start time in a formatted string
-    @Exclude
-    public String getStartDataAsString(){
-        return this.startTime.toString();
-//        return this.startTime.toString().substring(0, this.startTime.toString().indexOf(" GMT"));
-    }
-
-    // returns the end time in a formatted string
-    @Exclude
-    public String getEndDataAsString(){
-        return this.endTime.toString();
-//        return this.endTime.toString().substring(0, this.endTime.toString().indexOf(" GMT"));
-    }
-
     public String getAddress() {
         return address;
     }

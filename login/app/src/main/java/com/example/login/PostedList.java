@@ -101,6 +101,7 @@ public class PostedList extends AppCompatActivity {
                             if (dc.getType() == DocumentChange.Type.ADDED) {
                                 // Convert the document to an ActiveParking object and add it to the array list
                                 ActiveParking activeParking = dc.getDocument().toObject(ActiveParking.class);
+                                String postedId = dc.getDocument().getId();
                                 parkingModelArrayList.add(activeParking);
                             }
 

@@ -94,8 +94,8 @@ public class PostedParkingAdapter extends RecyclerView.Adapter<PostedParkingAdap
             }
         });
 
-        holder.availableHoursFrom.setText(activeParking.getStartDataAsString());
-        holder.availableHoursTo.setText(activeParking.getEndDataAsString());
+        holder.availableHoursFrom.setText(activeParking.startTime.toString().substring(0, activeParking.startTime.toString().indexOf(" GMT")));
+        holder.availableHoursTo.setText(activeParking.endTime.toString().substring(0, activeParking.endTime.toString().indexOf(" GMT")));
         holder.price.setText(activeParking.price);
     }
 
