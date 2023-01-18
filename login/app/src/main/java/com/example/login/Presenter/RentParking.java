@@ -9,6 +9,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.login.Model.ApiClient;
+import com.example.login.Model.ApiInterface;
+import com.example.login.Model.RentParkingModel;
 import com.example.login.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -18,17 +21,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-
-import java.util.HashMap;
-import java.util.Map;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class RentParking extends AppCompatActivity {
-
     FirebaseFirestore firebaseFirestore;
     FirebaseUser firebaseUser;
 
@@ -37,6 +36,9 @@ public class RentParking extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rent_parking);
+
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        RentParkingModel rentParkingModel = new RentParkingModel();
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -102,11 +104,26 @@ public class RentParking extends AppCompatActivity {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             if (!ownerId.equals(firebaseUser.getUid())) {
-                                Map<String, Object> updates = new HashMap<>();
-                                updates.put("status", "Rented");
-                                updates.put("renterId", firebaseUser.getUid());
-                                document.getReference().update(updates);
-                                Toast.makeText(RentParking.this, "Parking rented successfully", Toast.LENGTH_SHORT).show();
+                                rentParkingModel.setParkingId(document.getId());
+                                rentParkingModel.setRenterId(firebaseUser.getUid());
+
+                                Call<RentParkingModel> call = apiInterface.rentParking(rentParkingModel);
+                                call.enqueue(new Callback<RentParkingModel>() {
+                                    @Override
+                                    public void onResponse(Call<RentParkingModel> call, Response<RentParkingModel> response) {
+                                        RentParkingModel data = response.body();
+                                        String message = data.getMessage();
+                                        String status = data.getStatus();
+                                        Toast.makeText(RentParking.this, message, Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<RentParkingModel> call, Throwable t) {
+                                        // handle failure
+                                        Toast.makeText(RentParking.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
                                 startActivity(new Intent(RentParking.this, MainActivity.class));
                             } else {
                                 Toast.makeText(RentParking.this, "You can't rent your own parking", Toast.LENGTH_SHORT).show();
