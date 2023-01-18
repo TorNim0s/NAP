@@ -57,40 +57,15 @@ public class PostedParkingAdapter extends RecyclerView.Adapter<PostedParkingAdap
 
         // create instance of firebase firestore
         firebaseFirestore = FirebaseFirestore.getInstance();
-        // get the parking id
-        String parkingId = activeParking.parkingId;
-        // create reference to the parking document
-        DocumentReference parkingRef = firebaseFirestore.collection("Parkings").document(parkingId);
-        holder.parkingId.setText(parkingId);
-        parkingRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        holder.parkingAddress.setText(activeParking.address);
+        DocumentReference userRef = firebaseFirestore.collection("User").document(activeParking.ownerId);
+        userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    // The document exists
-                    DocumentSnapshot docPark = task.getResult();
-                    if (docPark.exists()) {
-                        String city = docPark.getString("city");
-                        String street = docPark.getString("street");
-                        String homeNum = String.valueOf(docPark.get("homeNum"));
-                        String parkingNum = String.valueOf(docPark.get("parkingNum"));
-                        String address = city + ", " + street + " " + homeNum + ", " + parkingNum;
-                        // set the address to the view holder
-                        holder.parkingAddress.setText(address);
-
-                        String userId = docPark.getString("ownerId");
-                        DocumentReference userRef = firebaseFirestore.collection("User").document(userId);
-                        userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task1) {
-                                if (task1.isSuccessful()) {
-                                    DocumentSnapshot docUser = task1.getResult();
-                                    if (docUser.exists()) {
-                                        // set the owner name to the view holder
-                                        holder.owner.setText(docUser.getString("name"));
-                                    }
-                                }
-                            }
-                        });
+            public void onComplete(@NonNull Task<DocumentSnapshot> task1) {
+                if (task1.isSuccessful()) {
+                    DocumentSnapshot docUser = task1.getResult();
+                    if (docUser.exists()) {
+                        holder.owner.setText(docUser.getString("name"));
                     }
                 }
             }

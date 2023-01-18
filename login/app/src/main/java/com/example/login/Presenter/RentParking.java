@@ -31,7 +31,6 @@ public class RentParking extends AppCompatActivity {
 
     FirebaseFirestore firebaseFirestore;
     FirebaseUser firebaseUser;
-    String ownerId = "";
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -97,13 +96,11 @@ public class RentParking extends AppCompatActivity {
                     return;
                 }
 
-                //need to change search for specific document
-                Query query = firebaseFirestore.collection("PostedParking").whereEqualTo("parkingId", parkingId);
-                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult().getDocuments().get(0);
+                DocumentReference docRef = firebaseFirestore.collection("PostedParking").document(postedId);
+                docRef.get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
                             if (!ownerId.equals(firebaseUser.getUid())) {
                                 Map<String, Object> updates = new HashMap<>();
                                 updates.put("status", "Rented");
@@ -114,7 +111,7 @@ public class RentParking extends AppCompatActivity {
                             } else {
                                 Toast.makeText(RentParking.this, "You can't rent your own parking", Toast.LENGTH_SHORT).show();
                             }
-                        } else {
+                        }  else {
                             Toast.makeText(RentParking.this, "Error retrieving parking data", Toast.LENGTH_SHORT).show();
                         }
                     }

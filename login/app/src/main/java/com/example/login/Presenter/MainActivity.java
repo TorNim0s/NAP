@@ -2,11 +2,13 @@ package com.example.login.Presenter;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -36,6 +38,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -59,7 +62,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     FirebaseFirestore firebaseFirestore;
     ProgressDialog progressDialog;
     GoogleMap map;
-    
+    Geocoder geocoder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,11 +72,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         MaterialButton loginBtn = (MaterialButton) findViewById(R.id.login);
         MaterialButton postParkingBtn = (MaterialButton) findViewById(R.id.PostParkingButton);
         MaterialButton profileBtn = (MaterialButton) findViewById(R.id.ProfileButton);
-
+        EditText search = (EditText) findViewById(R.id.search);
+        MaterialButton searchBtn = (MaterialButton) findViewById(R.id.searchBtn);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        geocoder = new Geocoder(this);
 
 
         // Show a progress dialog while data is being fetched
@@ -129,6 +135,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    List<Address> addresses = geocoder.getFromLocationName(search.getText().toString(), 1);
+                    if (addresses.size() > 0) {
+                        double latitude = addresses.get(0).getLatitude();
+                        double longitude = addresses.get(0).getLongitude();
+                        LatLng latLng = new LatLng(latitude, longitude);
+                        map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                        map.animateCamera(CameraUpdateFactory.zoomTo(16));
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
 
     }
 
@@ -158,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void EventChangeListener() {
 //        // Listen for changes to the "PostedParking" collection in Firebase Firestore
-        Geocoder geocoder = new Geocoder(this);
+
 
         firebaseFirestore.collection("PostedParking")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {

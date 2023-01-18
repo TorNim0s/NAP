@@ -87,7 +87,7 @@ public class RentedList extends AppCompatActivity {
                             if (dc.getType() == DocumentChange.Type.ADDED) {
                                 ActiveParking activeParking = dc.getDocument().toObject(ActiveParking.class);
                                 if (activeParking.status.equals("Rented")) {
-                                    parkingModelArrayList.add(activeParking);
+                                    parkingModelArrayList.add(activeParking.setPostedId(dc.getDocument().getId()));
                                 }
                             }
 
