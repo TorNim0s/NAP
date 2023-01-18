@@ -115,21 +115,24 @@ public class RentParking extends AppCompatActivity {
                                         String message = data.getMessage();
                                         String status = data.getStatus();
                                         Toast.makeText(RentParking.this, message, Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(RentParking.this, MainActivity.class));
                                     }
 
                                     @Override
                                     public void onFailure(Call<RentParkingModel> call, Throwable t) {
                                         // handle failure
                                         Toast.makeText(RentParking.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(RentParking.this, MainActivity.class));
                                     }
                                 });
 
-                                startActivity(new Intent(RentParking.this, MainActivity.class));
                             } else {
                                 Toast.makeText(RentParking.this, "You can't rent your own parking", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(RentParking.this, MainActivity.class));
                             }
                         }  else {
                             Toast.makeText(RentParking.this, "Error retrieving parking data", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(RentParking.this, MainActivity.class));
                         }
                     }
                 });
