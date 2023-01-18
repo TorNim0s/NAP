@@ -21,6 +21,14 @@
         android:textColor="@color/white"
         android:textStyle="bold" />
 
+    <ImageView
+        android:id="@+id/logo_round"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="13dp"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/logo_round" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/back"
         android:layout_width="70dp"

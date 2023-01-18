@@ -23,12 +23,15 @@ public class ActiveParking {
     public String renterId, ownerId;
     public String address;
 
+
     public ActiveParking() {
     }
 
     // constructor that initializes the startTime, endTime, price, parkingId, ownerId,
     // and status of the parking
+
     public ActiveParking(long startTime, long endTime, String price, String parkingId, String ownerId, String status, String address) {
+
         this.startTime = new Time(startTime);
         this.endTime = new Time(endTime);
         this.price = price;
@@ -38,6 +41,7 @@ public class ActiveParking {
         this.renterId = "";
         this.address = address;
     }
+
 
     public String getPrice() {
         return price;
@@ -78,4 +82,5 @@ public class ActiveParking {
     public String getAddress() {
         return address;
     }
+
 }

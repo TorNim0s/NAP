@@ -114,6 +114,7 @@ public class PostParking extends AppCompatActivity {
 
 
 
+
 //                CollectionReference usersRef = firebaseFirestore.collection("PostedParking");
 //                Query query = usersRef.whereEqualTo("parkingId", selectedParkingId);
 //                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
