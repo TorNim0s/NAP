@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.login.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -94,8 +96,25 @@ public class Profile extends AppCompatActivity {
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Profile.this, "In progress: edit profile", Toast.LENGTH_SHORT).show();
-                //startActivity(new Intent(Profile.this, AddParking.class));
+                //Toast.makeText(Profile.this, "In progress: edit profile", Toast.LENGTH_SHORT).show();
+
+                // now we can display the data in the appropriate views
+                TextView nameTextView = findViewById(R.id.name_text_view);
+                String fullName = nameTextView.getText().toString();
+
+                TextView numberTextView = findViewById(R.id.number_text_view);
+                String phone = numberTextView.getText().toString();
+
+
+                Intent intent = new Intent(Profile.this, EditProfile.class);
+
+                intent.putExtra("Name", fullName);
+
+                intent.putExtra("Phone", phone);
+
+
+                startActivity(intent);
+
             }
         });
 
@@ -103,8 +122,26 @@ public class Profile extends AppCompatActivity {
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Profile.this, "In progress: change password", Toast.LENGTH_SHORT).show();
-                //startActivity(new Intent(Profile.this, AddParking.class));
+                TextView emailTextView = findViewById(R.id.email_text_view);
+                String email = emailTextView.getText().toString();
+                progressDialog.setTitle("Sending Mail");
+                progressDialog.show();
+                firebaseAuth.sendPasswordResetEmail(email)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                progressDialog.cancel();
+                                Toast.makeText(Profile.this, "Email sent to change password", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                progressDialog.cancel();
+                                Toast.makeText(Profile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
             }
         });
 
