@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/background"
     android:paddingTop="15dp"
-    tools:context=".Profile">
+    tools:context=".Presenter.Profile">
 
 
     <LinearLayout

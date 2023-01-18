@@ -1,4 +1,4 @@
-package com.example.login;
+package com.example.login.Presenter;
 
 
 import android.content.Context;
@@ -15,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.example.login.Model.ParkingModel;
+import com.example.login.R;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;

@@ -8,7 +8,7 @@
     Additionally, it has two methods, getStartDataAsString and getEndDataAsString,
     which return the start and end time in a formatted string respectively.  */
 
-package com.example.login;
+package com.example.login.Model;
 
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
@@ -17,11 +17,11 @@ import java.sql.Time;
 import java.util.Date;
 public class ActiveParking {
 
-    Date startTime, endTime;
-    String price;
-    String parkingId, status;
-    String renterId, ownerId;
-    String address;
+    public Date startTime, endTime;
+    public String price;
+    public String parkingId, status;
+    public String renterId, ownerId;
+    public String address;
 
     public ActiveParking() {
     }
