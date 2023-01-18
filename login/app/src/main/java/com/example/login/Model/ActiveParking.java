@@ -8,17 +8,20 @@
     Additionally, it has two methods, getStartDataAsString and getEndDataAsString,
     which return the start and end time in a formatted string respectively.  */
 
-package com.example.login;
+package com.example.login.Model;
+
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.sql.Time;
 import java.util.Date;
-
 public class ActiveParking {
 
-    Date startTime, endTime;
-    String price;
-    String parkingId, status;
-    String renterId, ownerId;
+    public Date startTime, endTime;
+    public String price;
+    public String parkingId, status;
+    public String renterId, ownerId;
+    public String address;
 
 
     public ActiveParking() {
@@ -26,7 +29,9 @@ public class ActiveParking {
 
     // constructor that initializes the startTime, endTime, price, parkingId, ownerId,
     // and status of the parking
-    public ActiveParking(long startTime, long endTime, String price, String parkingId,  String ownerId, String status) {
+
+    public ActiveParking(long startTime, long endTime, String price, String parkingId, String ownerId, String status, String address) {
+
         this.startTime = new Time(startTime);
         this.endTime = new Time(endTime);
         this.price = price;
@@ -34,6 +39,7 @@ public class ActiveParking {
         this.status = status;
         this.ownerId = ownerId;
         this.renterId = "";
+        this.address = address;
     }
 
 
@@ -73,16 +79,8 @@ public class ActiveParking {
         return endTime;
     }
 
-    // returns the start time in a formatted string
-    public String getStartDataAsString(){
-        return this.startTime.toString();
-//        return this.startTime.toString().substring(0, this.startTime.toString().indexOf(" GMT"));
-    }
-
-    // returns the end time in a formatted string
-    public String getEndDataAsString(){
-        return this.endTime.toString();
-//        return this.endTime.toString().substring(0, this.endTime.toString().indexOf(" GMT"));
+    public String getAddress() {
+        return address;
     }
 
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".RentParking">
+    tools:context=".Presenter.RentParking">
 
     <TextView
         android:id="@+id/address"
@@ -35,21 +35,12 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="393dp"
-        android:layout_height="201dp"
-        android:layout_below="@+id/owner"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp" />
-
 
     <TextView
         android:id="@+id/cost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/mapView"
+        android:layout_below="@id/owner"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
@@ -74,6 +65,34 @@
         android:text="Available: "
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
+
+    <TextView
+        android:id="@+id/parkingId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/back"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="#30ffffff"
+        android:drawablePadding="20dp"
+        android:padding="20dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/ownerId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/back"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="#30ffffff"
+        android:drawablePadding="20dp"
+        android:padding="20dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:visibility="gone"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/rent"

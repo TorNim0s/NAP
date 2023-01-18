@@ -1,9 +1,7 @@
-package com.example.login;
+package com.example.login.Presenter;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -11,12 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.example.login.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
@@ -30,9 +23,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -40,7 +31,7 @@ public class RentParking extends AppCompatActivity {
 
     FirebaseFirestore firebaseFirestore;
     FirebaseUser firebaseUser;
-    String ownerId;
+    String ownerId = "";
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -51,8 +42,6 @@ public class RentParking extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        MapView mapView = (MapView) findViewById(R.id.mapView);
-
         TextView address = (TextView) findViewById(R.id.address);
         TextView owner = (TextView) findViewById(R.id.owner);
         TextView cost = (TextView) findViewById(R.id.cost);
@@ -60,46 +49,36 @@ public class RentParking extends AppCompatActivity {
         MaterialButton rentBtn = (MaterialButton) findViewById(R.id.rent);
 
         Bundle bundle = getIntent().getExtras();
-        address.setText(bundle.getString("Address"));
-        owner.setText("Owned by: " + bundle.getString("Owner"));
-        cost.setText("Hourly price: " + bundle.getString("Price"));
-        available.setText("Available: From " + bundle.getString("AvailableFrom") + " To " + bundle.getString("AvailableTo"));
-        String parkingId = bundle.getString("parkingId");
-        Geocoder geocoder = new Geocoder(this);
-        mapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                List<Address> addresses;
-                try {
-                    addresses = geocoder.getFromLocationName(address.getText().toString(), 1);
-                    if(addresses.size() > 0) {
-                        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-//                        googleMap.setMyLocationEnabled(true);
-                        googleMap.setTrafficEnabled(true);
-                        googleMap.getUiSettings().setZoomControlsEnabled(true);
+        String[] ids = bundle.getString("ids").split(",");
+        String postedId = ids[0];
+        String parkingId = ids[1];
+        String ownerId = ids[2];
 
-                        double latitude = addresses.get(0).getLatitude();
-                        double longitude = addresses.get(0).getLongitude();
-                        LatLng latLng = new LatLng(latitude, longitude);
-                        googleMap.addMarker(new MarkerOptions().position(latLng)
-                                .title(address.getText().toString())
-                                .snippet("Cost: " + cost.getText().toString()));
-                        googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
+        DocumentReference docRef = firebaseFirestore.collection("PostedParking").document(postedId);
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    address.setText(document.getString("address"));
+                    cost.setText("Hourly price: " + document.getString("price"));
+                    String from = document.getTimestamp("startTime").toDate().toString().substring(0, document.getTimestamp("startTime").toDate().toString().indexOf(" GMT"));
+                    String to = document.getTimestamp("endTime").toDate().toString().substring(0, document.getTimestamp("endTime").toDate().toString().indexOf(" GMT"));
+                    available.setText("Available: \nFrom " + from + "\nTo " + to);
+                } else {
+                    Toast.makeText(RentParking.this, "PostedParking data not found", Toast.LENGTH_SHORT).show();
                 }
-
+            } else {
+                Toast.makeText(RentParking.this, "Error retrieving PostedParking data", Toast.LENGTH_SHORT).show();
             }
         });
-        DocumentReference docRef = firebaseFirestore.collection("Parkings").document(parkingId);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        DocumentReference userRef = firebaseFirestore.collection("User").document(ownerId);
+        userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            public void onComplete(Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        ownerId = document.getString("ownerId");
+                        owner.setText("Owned by: " + document.getString("name"));
                     } else {
                         Toast.makeText(RentParking.this, "User data not found", Toast.LENGTH_SHORT).show();
                     }
@@ -112,7 +91,7 @@ public class RentParking extends AppCompatActivity {
         rentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (firebaseUser == null){
+                if (firebaseUser == null) {
                     Intent intent = new Intent(RentParking.this, SignIn.class);
                     startActivity(intent);
                     return;

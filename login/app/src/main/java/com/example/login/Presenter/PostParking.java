@@ -1,4 +1,4 @@
-package com.example.login;
+package com.example.login.Presenter;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -18,6 +18,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.login.Model.ActiveParking;
+import com.example.login.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -134,7 +136,7 @@ public class PostParking extends AppCompatActivity {
 
 
                 // Create a new ActiveParking object with the selected parking information
-                ActiveParking activeParking = new ActiveParking(FromCalender.getTimeInMillis(), ToCalender.getTimeInMillis(), price, selectedParkingId, firebaseUser.getUid(), "Available");
+                ActiveParking activeParking = new ActiveParking(FromCalender.getTimeInMillis(), ToCalender.getTimeInMillis(), price, selectedParkingId, firebaseUser.getUid(), "Available", selectedItem);
                 // Add the active parking object to the "PostedParking" collection in Firebase Firestore
                 firebaseFirestore.collection("PostedParking").add(activeParking);
                 // Show a toast message to confirm that the parking was posted successfully

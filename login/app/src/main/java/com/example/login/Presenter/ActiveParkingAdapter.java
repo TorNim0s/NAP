@@ -11,19 +11,23 @@
     The class also contains an inner class MyViewHolder which is used to hold the views in the
     layout and to make them accessible in the onBindViewHolder method. */
 
-package com.example.login;
+package com.example.login.Presenter;
 
 import android.content.Context;
+
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.login.Model.ActiveParking;
+import com.example.login.R;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -37,7 +41,6 @@ import java.util.ArrayList;
 
 public class ActiveParkingAdapter extends RecyclerView.Adapter<ActiveParkingAdapter.MyViewHolder>{
 
-    FirebaseFirestore firebaseFirestore;
     Context context;
     ArrayList<ActiveParking> list;
 
@@ -69,38 +72,16 @@ public class ActiveParkingAdapter extends RecyclerView.Adapter<ActiveParkingAdap
     @Override
     public void onBindViewHolder(@NonNull ActiveParkingAdapter.MyViewHolder holder, int position) {
         ActiveParking activeParking = list.get(position);
-        // Initialize FirebaseFirestore instance
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        // Get the parkingId from the ActiveParking object
-        String parkingId = activeParking.parkingId;
-        // Get a reference to the parking space with the given parkingId
-        DocumentReference parkingRef = firebaseFirestore.collection("Parkings").document(parkingId);
-        // Get the document snapshot for the parking space
-        parkingRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    // The document exists
-                    DocumentSnapshot docPark = task.getResult();
-                    if (docPark.exists()) {
-                        // Get the city, street, home number, and parking number of the parking space
-                        String city = docPark.getString("city");
-                        String street = docPark.getString("street");
-                        String homeNum = String.valueOf(docPark.get("homeNum"));
-                        String parkingNum = String.valueOf(docPark.get("parkingNum"));
-                        // Concatenate the city, street, home number, and parking number to create
-                        String address = city + ", " + street + " " + homeNum + ", " + parkingNum;
-                        holder.parkingAddress.setText(address);
-                    }
-                }
-            }
-        });
+
         //Setting the text of the TextViews in the layout to
         //the corresponding values of the ActiveParking object
+        holder.parkingAddress.setText(activeParking.address);
         holder.status.setText(activeParking.status);
-        holder.availableHoursFrom.setText(activeParking.getStartDataAsString());
-        holder.availableHoursTo.setText(activeParking.getEndDataAsString());
+        holder.availableHoursFrom.setText(activeParking.startTime.toString().substring(0, activeParking.startTime.toString().indexOf(" GMT")));
+        holder.availableHoursTo.setText(activeParking.endTime.toString().substring(0, activeParking.endTime.toString().indexOf(" GMT")));
         holder.price.setText(activeParking.price);
+        //holder.postedId.setText();
+
     }
 
     /**
@@ -115,16 +96,46 @@ public class ActiveParkingAdapter extends RecyclerView.Adapter<ActiveParkingAdap
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         // TextViews to display the active parking details in the recycler view
-        TextView status, parkingAddress, availableHoursFrom, availableHoursTo, price;
+        TextView status, parkingAddress, availableHoursFrom, availableHoursTo, price, postedId;
+        FirebaseFirestore firebaseFirestore;
+        Boolean delFree;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            firebaseFirestore = FirebaseFirestore.getInstance();
             // Initializing the TextViews by finding their respective id's from the layout file
             status = itemView.findViewById(R.id.status);
             parkingAddress = itemView.findViewById(R.id.address);
             availableHoursFrom = itemView.findViewById(R.id.availableHoursFrom);
             availableHoursTo = itemView.findViewById(R.id.availableHoursTo);
             price = itemView.findViewById(R.id.price);
+            postedId = itemView.findViewById(R.id.postedId);
+
+            //need to fix: find a way to get the id of the document in postedParking
+            //fixes also in rentParking class
+            itemView.findViewById(R.id.remove).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String id = (String) postedId.getText();
+                    DocumentReference docRef = firebaseFirestore.collection("PostedParking").document(id);
+                    docRef.get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                delFree = document.getString("status").equals("Available");
+                            }
+                        }
+                    });
+                    if (delFree){
+                        firebaseFirestore.collection("PostedParking").document((String)postedId.getText()).delete();
+                        Toast.makeText(view.getContext(), "Posting deleted successfully", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(view.getContext(), PostedList.class);
+                        view.getContext().startActivity(intent);
+                    } else {
+                        Toast.makeText(view.getContext(), "Unable to remove, parking is currently being rented", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
 
         }
     }
