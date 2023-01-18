@@ -96,7 +96,7 @@
         android:layout_height="60dp"
         android:layout_below="@id/timeFrom"
         android:layout_marginStart="175dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="10dp"
         android:background="#30ffffff"
         android:drawablePadding="20dp"

@@ -23,6 +23,9 @@ public class ActiveParking {
     public String renterId, ownerId;
     public String address;
 
+    @Exclude
+    public String postedId;
+
 
     public ActiveParking() {
     }
@@ -81,6 +84,16 @@ public class ActiveParking {
 
     public String getAddress() {
         return address;
+    }
+
+    public String getPostedId() {
+        return postedId;
+    }
+
+    // Method to set ParkingId, returns the same object
+    public ActiveParking setPostedId(String postedId) {
+        this.postedId = postedId;
+        return this;
     }
 
 }

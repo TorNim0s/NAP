@@ -80,7 +80,7 @@ public class ActiveParkingAdapter extends RecyclerView.Adapter<ActiveParkingAdap
         holder.availableHoursFrom.setText(activeParking.startTime.toString().substring(0, activeParking.startTime.toString().indexOf(" GMT")));
         holder.availableHoursTo.setText(activeParking.endTime.toString().substring(0, activeParking.endTime.toString().indexOf(" GMT")));
         holder.price.setText(activeParking.price);
-        //holder.postedId.setText();
+        holder.postedId.setText(activeParking.getPostedId());
 
     }
 
@@ -116,24 +116,25 @@ public class ActiveParkingAdapter extends RecyclerView.Adapter<ActiveParkingAdap
             itemView.findViewById(R.id.remove).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String id = (String) postedId.getText();
-                    DocumentReference docRef = firebaseFirestore.collection("PostedParking").document(id);
+                    String Id = postedId.getText().toString();
+                    delFree = false;
+                    DocumentReference docRef = firebaseFirestore.collection("PostedParking").document(Id);
                     docRef.get().addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
                                 delFree = document.getString("status").equals("Available");
+                                if (delFree){
+                                    firebaseFirestore.collection("PostedParking").document(Id).delete();
+                                    Toast.makeText(view.getContext(), "Posting deleted successfully", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(view.getContext(), PostedList.class);
+                                    view.getContext().startActivity(intent);
+                                } else {
+                                    Toast.makeText(view.getContext(), "Unable to remove, parking is currently being rented", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         }
                     });
-                    if (delFree){
-                        firebaseFirestore.collection("PostedParking").document((String)postedId.getText()).delete();
-                        Toast.makeText(view.getContext(), "Posting deleted successfully", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(view.getContext(), PostedList.class);
-                        view.getContext().startActivity(intent);
-                    } else {
-                        Toast.makeText(view.getContext(), "Unable to remove, parking is currently being rented", Toast.LENGTH_SHORT).show();
-                    }
                 }
             });
 
