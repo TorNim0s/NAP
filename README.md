@@ -21,3 +21,4 @@
 ---
 
 # Introduction
+Welcome to NAP (Need A Parking), an Android application that allows users to rent private parking spaces from other users. With NAP, users can search for available parking spaces in their desired location and rent them on an hourly basis. The app also allows users to list their own parking spaces for rent. The main features of the app include searching for available parking spaces, booking parking spaces, and managing your own listed parking spaces. In this README, you will find information on how to use the app, the technologies used in the development of the app, and how to contribute to the project.
