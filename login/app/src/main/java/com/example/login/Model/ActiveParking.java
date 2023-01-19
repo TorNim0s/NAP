@@ -11,7 +11,6 @@
 package com.example.login.Model;
 
 import com.google.firebase.database.Exclude;
-import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.sql.Time;
 import java.util.Date;
@@ -86,6 +85,7 @@ public class ActiveParking {
         return address;
     }
 
+    @com.google.firebase.firestore.Exclude
     public String getPostedId() {
         return postedId;
     }
