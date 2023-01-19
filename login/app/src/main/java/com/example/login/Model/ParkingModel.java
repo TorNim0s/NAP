@@ -1,7 +1,5 @@
 package com.example.login.Model;
 
-import com.google.firebase.database.Exclude;
-
 /**
  * The class ParkingModel is used to store information about a parking spot.
  * It has several fields such as ownerId, city, street, homeNum, and ParkingNum
@@ -15,10 +13,10 @@ import com.google.firebase.database.Exclude;
  * Additionally, the class has getters and setters for each field
  * and an additional method setParkingId(String parkingId) which is used to set the parkingId of the parking spot.
  */
+
 public class ParkingModel {
 
     // Exclude this field from serialization
-    @Exclude
     private String parkingId;
 
     private String ownerId;
@@ -80,6 +78,7 @@ public class ParkingModel {
         return ownerId;
     }
 
+    @com.google.firebase.firestore.Exclude
     public String getParkingId() {
         return parkingId;
     }
