@@ -10,8 +10,11 @@
     <li><a href="#project-description">Project Description</a></li>
     <li><a href="#app-appearence">App Appearence</a></li>
     <li><a href="#setup">Setup</a></li>
+    <li><a href="#dependencies">Dependencies</a></li>
     <li><a href="#running-the-project">Running The Project</a></li>
     <li><a href="#design-and-architecture">Design And Architecture</a></li>
+    <li><a href="#testing">Testing</a></li>
+    
     
   </ol>
 </details>
@@ -52,6 +55,19 @@ dependencies {</br>
 }</br>
 * Click the Run button in the top right corner to build and run the project on an emulator or connected device.</br>
   * Note: make sure that you have the latest version of the Android SDK and build tools installed, and that your device or emulator is running on the same version or higher of Android.
+  
+# Dependencies
+This project uses the following dependencies:
+
+- AndroidX
+- Firebase Authentication
+- Firebase Firestore
+- Firebase Storage
+- Google Maps
+- Google Places
+- Glide
+- Material Design
+- RecyclerView
 
 # Running The Project
 1. Make sure you have Android Studio installed on your computer.
@@ -80,35 +96,58 @@ The NAP project uses the MVP (Model-View-Presenter) design pattern. The model co
 </br></br>
 The project also includes UML and diagrams to provide a visual representation of the project's design and architecture.</br>
 </br>
-### &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Activity Diagram
+### &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Activity Diagram
 <img src="https://user-images.githubusercontent.com/93203695/213521879-2411aca4-a5cf-4718-9b5b-5ffe300edb11.png" alt="activity" border="0"/>
 </br></br>
 
-### &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Use-Case Diagram
+### &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Use-Case Diagram
 <img src="https://user-images.githubusercontent.com/93203695/213522486-2e70649f-0038-467f-a6ec-6e441a4a8185.png" alt="usecase" border="0"/>
 </br></br>
 
-### &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; State Machine Diagram
+### &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; State Machine Diagram
 <img src="https://user-images.githubusercontent.com/93203695/213522880-91fac04b-4851-495f-8a9e-eb5667554f60.png" alt="statemachine" border="0"/>
 </br></br>
 
-### &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Sequence Diagram
+### &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Sequence Diagram
 <img src="https://user-images.githubusercontent.com/93203695/213523043-092d84e1-85d6-413b-a2cb-b75d1e18c533.png" alt="sequence" border="0"/>
 </br></br>
 
-### &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; ERD
+### &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; ERD
 <img src="https://user-images.githubusercontent.com/93203695/213523205-8e2eb69c-b3a4-4c60-b45a-f4459644cf47.png" alt="erd" border="0"/>
 </br></br>
 
-### &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Class UML
+### &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Class UML
 <img src="https://user-images.githubusercontent.com/93203695/213523851-be8d6ec3-6a0a-48e4-a0ce-cdbc9863b912.png" alt="class" border="0"/>
 </br></br>
 
-### &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Object UML
+### &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Object UML
 <p align="center">
 <img src="https://user-images.githubusercontent.com/93203695/213523958-2081b338-b86f-4dfd-999e-b9aa1232c0e5.png" alt="object" border="0"/>
 </a>
 </p>
 </br></br>
 
+# Testing
+To test the project, you can use the built-in Android Studio emulator or run the app on a physical Android device.</br>
+</br>
+The app has been tested on Android versions 6.0 and above.</br>
+### Automated Tests
+Currently, the project does not include any automated tests. However, you can test the following functionalities manually:
+- User registration and login
+- Search and Rent parking
+- User Profile
+- Edit Profile
+</br>
+To test the user registration and login functionality, you can create a new account and verify that you are able to log in with the newly created credentials. To test the search and rent parking functionality, you can search for available parking spots and attempt to rent one. To test the user profile functionality, you can navigate to the user profile screen and verify that the displayed information is correct. To test the edit profile functionality, you can change the user's information and verify that it is updated successfully.</br></br>
+Please note that these are just examples of functionalities that you can test, you can add or remove any functionality you like.
+</br>
 
+### Debugging
+In case of any issues or bugs, you can use the Android Studio's built-in debugging tools such as Logcat to view the logs and trace the problem. You can also use Firebase's crashlytics to track and analyze any crashes that occur in the app.
+</br>
+
+### Known Issues
+Currently, there are no known issues.
+</br></br>
+You can add or remove any testing functionality you like.
+</br></br>
